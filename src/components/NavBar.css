@@ -1,0 +1,31 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #333;
+}
+
+.logo .brand-name {
+  color: #00c3ff;
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+}
+
+.nav-links li {
+  margin: 0 15px;
+}
+
+.nav-links a {
+  color: #00c3ff;
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  color: white;
+}
