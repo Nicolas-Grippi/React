@@ -5,17 +5,16 @@ import CartWidget from './CartWidget';
 
 export default function NavBar() {
   return (
-    <nav className="navbar">
-      <div className="logo">
-        <a href="/" className="brand-name">Scaloneta</a>
-      </div>
-      <ul className="nav-links">
-        <li><a href="#Productos">Productos</a></li>
-        <li><a href="#Outlet">Outlet</a></li>
-        <li><a href="#Nosotros">Nosotros</a></li>
-        <li><a href="#Contacto">Contacto</a></li>
-      </ul>
+    <nav className="my-4 d-flex justify-content-between align-items-center">
+      <img className='img-fluid' src="https://seeklogo.com/images/A/afa-argentina-3-star-logo-CE85FC39D9-seeklogo.com.png" alt="marca" />
+      <div>    
+     <button className='btn btn-dark mx-2'>Productos</button>
+     <button className='btn btn-dark mx-2'>Outlet</button>
+     <button className='btn btn-dark mx-2'>Nosotros</button>
+     <button className='btn btn-dark mx-2'>Contacto</button>
+     </div>
       <CartWidget />
+      
     </nav>
   );
 }

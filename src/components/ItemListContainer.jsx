@@ -4,9 +4,9 @@ import './ItemListContainer.css';
 
 function ItemListContainer({ greetings }) {
   return (
-    <div className="item-list-container">
-      <h1>{greetings}</h1>
-    </div>
+    <section className='container-fluid text-center'>
+      <h1 className='text-primary text-center '>{greetings}</h1>
+    </section>
   );
 }
 
