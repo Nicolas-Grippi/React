@@ -1,0 +1,60 @@
+/* Contenedor principal de las tarjetas */
+.products-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que las tarjetas se ajusten a la siguiente línea si no hay espacio */
+    justify-content: center; /* Centra las tarjetas en el contenedor */
+    gap: 20px; /* Espacio entre las tarjetas */
+    padding: 20px;
+}
+
+/* Estilos para cada tarjeta individual */
+.product-card {
+    background-color: #61afee;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(5, 5, 5, 0.1);
+    width: 250px; /* Ancho fijo de la tarjeta */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+/* Hover para dar efecto visual a la tarjeta */
+.product-card:hover {
+    transform: translateY(-10px); /* Efecto de elevación al pasar el ratón */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Imagen del producto */
+.product-image {
+    width: 100%; /* Imagen ocupa todo el ancho de la tarjeta */
+    height: 250px; /* Altura fija para la imagen */
+    object-fit: cover; /* Mantiene la relación de aspecto */
+}
+
+/* Información del producto */
+.product-info {
+    padding: 15px; /* Espaciado interno para la información del producto */
+    text-align: left; /* Alineación del texto a la izquierda */
+}
+
+/* Estilos del título del producto */
+.product-title {
+    font-size: 1.2rem; /* Tamaño del texto del título */
+    color: #333; /* Color del título */
+    margin: 10px 0; /* Espaciado arriba y abajo del título */
+}
+
+/* Estilos del precio del producto */
+.product-price {
+    font-size: 1rem; /* Tamaño del texto del precio */
+    color: #2a9d8f; /* Color del precio */
+    font-weight: bold; /* Negrita para el precio */
+    margin-bottom: 10px; /* Espaciado abajo del precio */
+}
+
+/* Estilos de la descripción */
+.product-description {
+    font-size: 0.9rem; /* Tamaño del texto de la descripción */
+    color: #666; /* Color de la descripción */
+    margin-bottom: 10px; /* Espaciado abajo de la descripción */
+}

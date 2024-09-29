@@ -1,10 +1,10 @@
 import React from 'react';
 import NavBar from './components/NavBar';
-//import ItemListContainer from './components/ItemListContainer'
+import ItemListContainer from './components/ItemListContainer'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import HomeView from './views/HomeView/HomeView';
-import ProductView from './views/ProductView/ProductView';
-import ContactView from './views/ContactView/ContactView';
+
+import ProductView from './components/ProductView';
+
 
 function App() {
   return (
@@ -12,9 +12,9 @@ function App() {
       <BrowserRouter>
         <NavBar />
         <Routes>
-          <Route exact path='/' element={<HomeView />} />
-          <Route exact path='/products' element={<ProductView />} />
-          <Route exact path='/contact' element={<ContactView />} />
+          <Route exact path='/products' element={<ItemListContainer greetings="Bienvenidos a tienda Scaloneta" />} />
+          <Route path="/product/:id" element={<ProductView/>} />
+
         </Routes>
       </BrowserRouter>
     </>

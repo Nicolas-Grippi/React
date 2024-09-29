@@ -1,18 +1,18 @@
 const products = [
     {
     id:1,
-    title:'ArgTitular',
+    title:'Argentina Titular',
     price: '$45.000',
     category: 'Camisetas',
     description: 'Talles: XL, L , M, S, XS',
     image:
-    '/CamisetaArg.avif'
+    'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/c4c8dee7623f4209b76dfd333a68c812_9366/Camiseta_Titular_Argentina_24_Blanco_IP8400_01_laydown.jpg'
 },
 
 
 {
     id:2,
-    title:'ArgTitular',
+    title:'Argentina Titular',
     price: '$45.000',
     category: 'Camisetas',
     description: 'Talles: XL, L , M, S, XS',
@@ -22,7 +22,7 @@ const products = [
 
 {
     id:3,
-    title:'ArgTitular',
+    title:'Argentina Titular',
     price: '$45.000',
     category: 'Camisetas',
     description: 'Talles: XL, L , M, S, XS',

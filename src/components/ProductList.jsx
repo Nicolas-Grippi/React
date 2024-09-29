@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getProducts } from '../asyncMonk.js'; // Asegúrate de que esta función trae los productos correctamente
+import { getProducts } from '../asyncMock.js'; // Asegúrate de que esta función trae los productos correctamente
 import ProductCard from './ProductCard.jsx';
 
 export default function ProductList() {
