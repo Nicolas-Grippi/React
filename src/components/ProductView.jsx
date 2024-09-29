@@ -19,7 +19,7 @@ return (
             <h4>{product.title} - <p>{product.category}</p></h4>
             <img src={product.image} alt={product.title} />
             <p>Descripcion: {product.description}</p>
-            <p>$ {product.price} </p>
+            <p>{product.price} </p>
         </article>
     </>
 )
