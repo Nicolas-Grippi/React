@@ -1,24 +1,28 @@
 import React from 'react';
 import NavBar from './components/NavBar';
-import ItemListContainer from './components/ItemListContainer'
-import ItemDetailsContainer from './components/itemDetailsContainer'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+import HomeView from './views/HomeView/HomeView';
+import CamisetaView from './views/CamisetaView/CamisetaView';
+import PantalonView from './views/PantalonView/PantalonView';
+import CamperaView from './views/CamperaView/CamperaView';
 
 
 
 function App() {
   return (
     <>
+    
       <BrowserRouter>
+    
         <NavBar />
-        <ItemListContainer greetings="Bienvenido a la tienda!"/>
-        <ItemDetailsContainer />
-
+        
         <Routes>
-        <Route exact path='/' element={<ItemListContainer/>} />
-        <Route path="/category/:categoryId" element={<ItemListContainer/>} />
-        <Route path="/item/:id" element={<ItemDetailsContainer/>} />
+       
+          <Route exact path='/' element={<HomeView />} />
+          <Route exact path='/camiseta' element={<CamisetaView />} />
+          <Route exact path='/pantalon' element={<PantalonView />} />
+          <Route exact path='/campera' element={<CamperaView />} />
+          
         </Routes>
       </BrowserRouter>
     </>

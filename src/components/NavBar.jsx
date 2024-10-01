@@ -1,3 +1,4 @@
+// NavBar.jsx
 import React from 'react';
 import './NavBar.css';
 import CartWidget from './CartWidget';
@@ -7,44 +8,28 @@ export default function NavBar() {
   return (
     <>
       <nav className="my-4 d-flex justify-content-between align-items-center">
-       
-        <NavLink to={'/'}>
-          <img className="img-fluid" src="https://seeklogo.com/images/A/afa-argentina-3-star-logo-CE85FC39D9-seeklogo.com.png" alt="marca" />
-        </NavLink>
-
+        <img className='img-fluid' src="https://seeklogo.com/images/A/afa-argentina-3-star-logo-CE85FC39D9-seeklogo.com.png" alt="marca" />
         <div>
-          <button>
-            <NavLink 
-              to={'/'} 
-              className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
-            >Home</NavLink>
-          </button>
 
           <button>
-            <NavLink 
-              to={'/products'} 
-              className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
-            >Camisetas</NavLink>
-          </button>
+            <NavLink to={'/'}  className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>Home</NavLink>
+            </button>
 
           <button>
-            <NavLink 
-              to={'/products'} 
-              className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
-            >Pantalones</NavLink>
-          </button>
+            <NavLink to={'/camiseta'}  className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>Camiseta</NavLink>
+            </button>
 
           <button>
-            <NavLink 
-              to={'/contact'} 
-              className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
-            >Contacto</NavLink>
-          </button>
+          <NavLink to={'/pantalon'}  className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>Pantalon</NavLink>
+            </button>
+
+            <button>
+          <NavLink to={'/campera'}  className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>Campera</NavLink>
+            </button>
+
         </div>
-
         <CartWidget />
       </nav>
     </>
   );
 }
-

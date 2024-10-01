@@ -1,31 +1,34 @@
-import { useEffect, useState } from 'react';
-import { getProduct } from '../asyncMock';
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { getProducts } from '../asyncMock'; // Importa tu método para obtener productos
 
+const ItemDetailContainer = () => {
+  const { productId } = useParams();
+  const [product, setProduct] = React.useState(null);
 
-export default function ProductView() {
-   
-    const ItemDetailsContainer = () =>{
-    const [product, setProduct] = useState(null);
-   
+  React.useEffect(() => {
+    const fetchProduct = async () => {
+      const products = await getProducts();
+      const foundProduct = products.find((p) => p.id === parseInt(productId));
+      setProduct(foundProduct);
+    };
 
-    useEffect(() => {
-        getProductById('1')
-        .then(response)=>{
-})
-   .catch(error =>{
-console.error(error)
+    fetchProduct();
+  }, [productId]);
 
-   })
-},[])
+  if (!product) {
+    return <div>Cargando...</div>;
+  }
 
+  return (
+    <div>
+      <h1>{product.title}</h1>
+      <img src={product.image} alt={product.title} />
+      <p>Categoría: {product.category}</p>
+      <p>Precio: ${product.price}</p>
+      <p>Descripción: {product.description}</p> {/* Asegúrate de tener esta propiedad */}
+    </div>
+  );
+};
 
-    return (
-        <article>
-            <h2>Detalles del producto</h2>
-            <h4>{item.title} - <p>{item.category}</p></h4>
-            <img src={item.image} alt={item.title} />
-            <p>Descripción: {item.description}</p>
-            <p>Precio: {item.price}</p>
-        </article>
-    );
-
+export default ItemDetailContainer;

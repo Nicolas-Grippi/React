@@ -14,8 +14,8 @@ export default function ProductList() {
 
   return (
     <section>
-      {products.map((item) => (
-        <ProductCard key={item.id} product={item} />
+      {products.map((product) => (
+        <ProductCard key={product.id} product={product} />
       ))}
     </section>
   );

@@ -2,19 +2,15 @@ import { Link } from 'react-router-dom';
 import './ProductCard.css';
 
 
-export default function ProductCard({ item }) {
-  
-
+export default function ProductCard({ product }) {
   return (
     
-
       <article>
-        <h5>{item.title}</h5>
-        <img src={item.image} alt={item.title}/>
+        <h5>{product.title}</h5>
+        <img src={product.image} alt={product.title}/>
        <button>
-          <Link to={`/item/${item.id}`}>Detalles</Link>
+          <Link to={`/product/${product.id}`}>Detalles</Link>
           </button>
       </article>
     
-  );
-}
+  )}

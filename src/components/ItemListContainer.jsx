@@ -1,27 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import './ItemListContainer.css';
+import { useEffect, useState } from 'react';
 import { getProducts } from '../asyncMock'; 
 
-const ItemListContainer = ({ greetings }) => {
+const ItemListContainer = ({ category }) => {
   const [products, setProducts] = useState([]);
-  
 
   useEffect(() => {
-    getProducts()
-    .then(response => {
-      setProducts(response)
-    })
-.catch (error => {
-  console.error(error)
-})
-  },[])
+    getProducts().then((res) => {
+      
+      const filteredProducts = category
+        ? res.filter(product => product.category === category)
+        : res;
+
+      setProducts(filteredProducts);
+    });
+  }, [category]); 
 
   return (
     <div>
-      <h1>{greetings}</h1>
-      <ItemList products={products}/>
+      <h1>Lista de Productos</h1>
+      <ul>
+        {products.map((product) => (
+          <ul key={product.id}>
+            <h2>{product.title}</h2>
+            <img src={product.image} alt={product.title} />
+            <p>Categoría: {product.category}</p>
+            <p>Precio: {product.price}</p>
+            <button>Detalles</button>
+          </ul>
+        ))}
+      </ul>
     </div>
-  )
-} 
+  );
+}
 
 export default ItemListContainer;
