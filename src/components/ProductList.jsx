@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getProducts } from '../asyncMock.js'; // Asegúrate de que esta función trae los productos correctamente
+import { getProducts } from '../asyncMock.js'; 
 import ProductCard from './ProductCard.jsx';
 
 export default function ProductList() {
@@ -14,8 +14,8 @@ export default function ProductList() {
 
   return (
     <section>
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
+      {products.map((item) => (
+        <ProductCard key={item.id} product={item} />
       ))}
     </section>
   );

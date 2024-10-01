@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import './ItemListContainer.css';
-import { getProducts } from '../asyncMock'; // Ruta corregida
-import ProductCard from './ProductCard'; // Asegúrate de importar tu ProductCard
+import { getProducts } from '../asyncMock'; 
 
-function ItemListContainer({ greetings }) {
+const ItemListContainer = ({ greetings }) => {
   const [products, setProducts] = useState([]);
+  
 
   useEffect(() => {
-    getProducts.then((data) => {
-      setProducts(data);
-    });
-  }, []);
+    getProducts()
+    .then(response => {
+      setProducts(response)
+    })
+.catch (error => {
+  console.error(error)
+})
+  },[])
 
   return (
-    <section className='container-fluid text-center'>
-      <h1 className='text-primary text-center'>{greetings}</h1>
-      <div className="products-container">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} /> // Usa el componente ProductCard
-        ))}
-      </div>
-    </section>
-  );
-}
+    <div>
+      <h1>{greetings}</h1>
+      <ItemList products={products}/>
+    </div>
+  )
+} 
 
 export default ItemListContainer;
