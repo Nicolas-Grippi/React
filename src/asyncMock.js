@@ -22,27 +22,23 @@ const products = [
 
 {
     id:3,
-    title:'Argentina Suplente',
+    title:'Campera Argentina',
     price: '$35.000',
     category: 'campera',
     description: 'Talles: XL, L , M, S, XS',
     image:
-    'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/29825b2765df4f449134febbd28f4f66_9366/Camiseta_Alternativa_Argentina_24_Azul_IP8403_01_laydown.jpg'
+    'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/d19d18879b2b484ca2dd13df8a00c5d8_9366/Buzo_con_Capucha_ADN_Argentina_con_Cierre_Frontal_24_Azul_IU2143_21_model.jpg'
 },
 ];
 
-export const getProducts = () => {
+
+export const getProducts = (category) => {
   return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(products); // Simula la llamada de API con un delay
-    }, 2000); // 500ms de delay
+    setTimeout(() => { 
+      const filteredProducts = category
+        ? products.filter(product => product.category === category)
+        : products;
+      resolve(filteredProducts); 
+    }, 2000); 
   });
 };
-
-//export const getProduct = (id) => {
- // return products.find((products) => products.id == id);
-//};
-
-//export const getCategory = (category) => {
- // return products.filter((products) => products.category === category);
-//};

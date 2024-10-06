@@ -1,34 +1,16 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { getProducts } from '../asyncMock'; // Importa tu método para obtener productos
-
-const ItemDetailContainer = () => {
-  const { productId } = useParams();
-  const [product, setProduct] = React.useState(null);
-
-  React.useEffect(() => {
-    const fetchProduct = async () => {
-      const products = await getProducts();
-      const foundProduct = products.find((p) => p.id === parseInt(productId));
-      setProduct(foundProduct);
-    };
-
-    fetchProduct();
-  }, [productId]);
-
-  if (!product) {
-    return <div>Cargando...</div>;
-  }
+const ItemDetailsContainer = ({ product, onClose }) => {
+  if (!product) return null; 
 
   return (
     <div>
-      <h1>{product.title}</h1>
-      <img src={product.image} alt={product.title} />
-      <p>Categoría: {product.category}</p>
-      <p>Precio: ${product.price}</p>
-      <p>Descripción: {product.description}</p> {/* Asegúrate de tener esta propiedad */}
+      <h2>Detalles de {product.title}</h2>
+          <img src={product.image} alt={product.title} />
+          <p><strong>Categoría:</strong> {product.category}</p>
+          <p><strong>Descripción:</strong> {product.description}</p>
+          <p><strong>Talles disponibles:</strong> {product.description}</p>
+          <p><strong>Precio:</strong> {product.price}</p> 
     </div>
   );
 };
 
-export default ItemDetailContainer;
+export default ItemDetailsContainer;

@@ -2,9 +2,7 @@ import React from 'react';
 import NavBar from './components/NavBar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomeView from './views/HomeView/HomeView';
-import CamisetaView from './views/CamisetaView/CamisetaView';
-import PantalonView from './views/PantalonView/PantalonView';
-import CamperaView from './views/CamperaView/CamperaView';
+import ItemListContainer from './components/ItemListContainer';
 
 
 
@@ -19,9 +17,8 @@ function App() {
         <Routes>
        
           <Route exact path='/' element={<HomeView />} />
-          <Route exact path='/camiseta' element={<CamisetaView />} />
-          <Route exact path='/pantalon' element={<PantalonView />} />
-          <Route exact path='/campera' element={<CamperaView />} />
+          <Route exact path='/category/:category' element={<ItemListContainer />} />
+         
           
         </Routes>
       </BrowserRouter>

@@ -1,19 +1,28 @@
 import { useEffect, useState } from 'react';
 import { getProducts } from '../asyncMock'; 
+import { useParams } from 'react-router-dom';
+import ItemDetailsContainer from './itemDetailsContainer'; // Importar el nuevo componente
 
-const ItemListContainer = ({ category }) => {
+const ItemListContainer = () => {
   const [products, setProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null); // Estado para el producto seleccionado
+  const { category } = useParams();
 
   useEffect(() => {
-    getProducts().then((res) => {
-      
-      const filteredProducts = category
-        ? res.filter(product => product.category === category)
-        : res;
-
-      setProducts(filteredProducts);
+    getProducts(category).then((res) => {
+      setProducts(res);
     });
-  }, [category]); 
+  }, [category]);
+
+  // Función para manejar el clic en el botón "Detalles"
+  const handleDetailsClick = (product) => {
+    setSelectedProduct(product);
+  };
+
+  // Función para cerrar el modal de detalles
+  const handleCloseDetails = () => {
+    setSelectedProduct(null);
+  };
 
   return (
     <div>
@@ -25,12 +34,20 @@ const ItemListContainer = ({ category }) => {
             <img src={product.image} alt={product.title} />
             <p>Categoría: {product.category}</p>
             <p>Precio: {product.price}</p>
-            <button>Detalles</button>
+            <button onClick={() => handleDetailsClick(product)}>Detalles</button>
           </ul>
         ))}
       </ul>
+
+     
+      {selectedProduct && (
+        <ItemDetailsContainer 
+          product={selectedProduct} 
+          onClose={handleCloseDetails} 
+        />
+      )}
     </div>
   );
-}
+};
 
 export default ItemListContainer;

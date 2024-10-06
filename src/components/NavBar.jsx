@@ -16,15 +16,15 @@ export default function NavBar() {
             </button>
 
           <button>
-            <NavLink to={'/camiseta'}  className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>Camiseta</NavLink>
+            <NavLink to={'/category/camiseta'}  className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>Camiseta</NavLink>
             </button>
 
           <button>
-          <NavLink to={'/pantalon'}  className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>Pantalon</NavLink>
+          <NavLink to={'/category/pantalon'}  className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>Pantalon</NavLink>
             </button>
 
             <button>
-          <NavLink to={'/campera'}  className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>Campera</NavLink>
+          <NavLink to={'/category/campera'}  className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>Campera</NavLink>
             </button>
 
         </div>
