@@ -1,4 +1,3 @@
-// NavBar.jsx
 import React from 'react';
 import './NavBar.css';
 import CartWidget from './CartWidget';
@@ -7,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 export default function NavBar() {
   return (
     <>
-      <nav className="my-4 d-flex justify-content-between align-items-center">
+      <nav className="my-4 d-flex justify-content-between align-items-center navbar-custom">
         
         <NavLink to={'/'}>
           <img 
@@ -17,26 +16,23 @@ export default function NavBar() {
             style={{ cursor: 'pointer' }} 
           />
         </NavLink>
-        <div>
-          <button>
-            <NavLink to={'/'} className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
-              Home
-            </NavLink>
-          </button>
 
-          <button>
+        <div className="nav-buttons d-flex gap-3"> 
+          
+
+          <button className="btn-custom">
             <NavLink to={'/category/camiseta'} className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
               Camiseta
             </NavLink>
           </button>
 
-          <button>
+          <button className="btn-custom">
             <NavLink to={'/category/pantalon'} className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
               Pantalon
             </NavLink>
           </button>
 
-          <button>
+          <button className="btn-custom">
             <NavLink to={'/category/campera'} className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
               Campera
             </NavLink>

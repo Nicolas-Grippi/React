@@ -1,28 +1,21 @@
 import { useEffect, useState } from 'react';
 import { getProducts } from '../asyncMock'; 
 import { useParams } from 'react-router-dom';
-import ItemDetailsContainer from './itemDetailsContainer'; // Importar el nuevo componente
+import { NavLink } from 'react-router-dom';
+
 
 const ItemListContainer = () => {
   const [products, setProducts] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState(null); // Estado para el producto seleccionado
-  const { category } = useParams();
+ 
+  const { category ,id } = useParams();
 
   useEffect(() => {
-    getProducts(category).then((res) => {
+    getProducts(category ,id).then((res) => {
       setProducts(res);
     });
-  }, [category]);
+  }, [category, id]);
 
-  // Función para manejar el clic en el botón "Detalles"
-  const handleDetailsClick = (product) => {
-    setSelectedProduct(product);
-  };
 
-  // Función para cerrar el modal de detalles
-  const handleCloseDetails = () => {
-    setSelectedProduct(null);
-  };
 
   return (
     <div>
@@ -32,20 +25,10 @@ const ItemListContainer = () => {
           <ul key={product.id}>
             <h2>{product.title}</h2>
             <img src={product.image} alt={product.title} />
-            <p>Categoría: {product.category}</p>
-            <p>Precio: {product.price}</p>
-            <button onClick={() => handleDetailsClick(product)}>Detalles</button>
+            <NavLink to={`/item/${product.id}`} className= "btn">Detalles</NavLink>           
           </ul>
         ))}
       </ul>
-
-     
-      {selectedProduct && (
-        <ItemDetailsContainer 
-          product={selectedProduct} 
-          onClose={handleCloseDetails} 
-        />
-      )}
     </div>
   );
 };

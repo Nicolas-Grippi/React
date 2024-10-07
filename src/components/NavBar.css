@@ -6,9 +6,34 @@
  
 }
 
-navBar{
-display: flex;
-gap: 20px;
-justify-content: center;
-margin-bottom:30px ;
+
+.navbar-custom {
+  background-color: #ffffff; /* Blanco */
+  padding: 10px;
+  border-radius: 8px;
+}
+
+
+.btn-custom {
+  background-color: transparent;
+  border: none;
+  font-weight: bold; 
+}
+
+.nav-link {
+  color: #00BFFF;
+  text-decoration: none;
+}
+
+.nav-link.active {
+  color: #FFD700; 
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 20px; 
+}
+
+.navbar-custom .img-fluid {
+  max-height: 50px; 
 }
