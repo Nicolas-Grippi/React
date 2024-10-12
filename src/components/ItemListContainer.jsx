@@ -1,21 +1,24 @@
 import { useEffect, useState } from 'react';
-import { getProducts } from '../asyncMock'; 
+import { getProducts } from '../firebase/firebase'; 
 import { useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
-
 const ItemListContainer = () => {
   const [products, setProducts] = useState([]);
- 
-  const { category ,id } = useParams();
+  const { category } = useParams(); 
 
   useEffect(() => {
-    getProducts(category ,id).then((res) => {
-      setProducts(res);
-    });
-  }, [category, id]);
+    const fetchProducts = async () => {
+      const allProducts = await getProducts();
+      const filteredProducts = category
+        ? allProducts.filter(product => product.category === category)
+        : allProducts;
 
+      setProducts(filteredProducts);
+    };
 
+    fetchProducts();
+  }, [category]);
 
   return (
     <div>
@@ -25,7 +28,7 @@ const ItemListContainer = () => {
           <ul key={product.id}>
             <h2>{product.title}</h2>
             <img src={product.image} alt={product.title} />
-            <NavLink to={`/item/${product.id}`} className= "btn">Detalles</NavLink>           
+            <NavLink to={`/item/${product.id}`} className="btn">Detalles</NavLink>           
           </ul>
         ))}
       </ul>

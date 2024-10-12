@@ -1,7 +1,8 @@
-// Import the functions you need from the SDKs you need
+
 import { initializeApp } from "firebase/app";
-import {getFirestore,doc,getDoc,getDocs,collection,query} from 'firebase/firestore'
-// Your web app's Firebase configuration
+import { getFirestore, doc, getDoc, getDocs, collection, query, where, setDoc, addDoc, updateDoc, writeBatch } from 'firebase/firestore';
+
+
 const firebaseConfig = {
     apiKey: "AIzaSyAt8sFyMtHrHSeFHcX58O1JP_a_ArPuraU",
     authDomain: "escaloneta-react.firebaseapp.com",
@@ -11,103 +12,98 @@ const firebaseConfig = {
     appId: "1:913771550029:web:0282ffb02476d8d6ba9304"
 };
 
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+export const db = getFirestore(app);
 
-//obtener un producto
 
-export async function getSingleProduct(id){
-    const documentRef = doc(db,'products',id);
-try{
-    const snapshot = await getDoc(documentRef);
-    return snapshot.data();
-}catch(error){
-console.error("error al obtener el doc: ",error);
+// Obtener un producto
+export async function getSingleProduct(id) {
+    const documentRef = doc(db, 'products', id);
+    try {
+        const snapshot = await getDoc(documentRef);
+        return snapshot.data();
+    } catch (error) {
+        console.error("error al obtener el doc: ", error);
+    }
 }
 
+// Obtener toda una colección
+export async function getProducts() {
+    try {
+        const querySnapshot = await getDocs(collection(db, 'products'));
+        const productsList = querySnapshot.docs.map(docu => ({
+            id: docu.id,
+            ...docu.data()
+        }));
+        return productsList;
+    } catch (error) {
+        console.error("error al obtener el doc: ", error);
+    }
 }
 
-//obtener toda una coleccion--------------------------------------------
-
-export async function getProducts(){  
-try{
-    const querySnapshot =await getDocs(collection(db,'products'))
-    const productsList=querySnapshot.docs.map(docu => {
-        return{
-            id:docu.id,
-            ...docu.data() //esto es un spread
-        }
-    })
-    return productsList;
-}catch(error){
-console.error("error al obtener el doc: ",error);
-}
-
-}
-
-//filtros por categoria------------------------------------
+// Filtros por categoría
 export async function filterProductsByCategory(categoryId) {
     try {
-      const filteredQuery = query(
-        collection(db, 'products'),
-        where('price', '<', price)
-      );
-      const querySnapshot = await getDocs(filteredQuery);
-      if (querySnapshot.size !== 0) {
-        const productsList = querySnapshot.docs.map((docu) => {
-          return {
-            id: docu.id,
-            ...docu.data(),
-          };
-        });
-        return productsList;
-      } else {
-        console.log('Coleccion vacía !');
-      }
+        const filteredQuery = query(
+            collection(db, 'products'),
+            where('category', '==', categoryId) 
+        );
+        const querySnapshot = await getDocs(filteredQuery);
+        if (querySnapshot.size !== 0) {
+            const productsList = querySnapshot.docs.map((docu) => ({
+                id: docu.id,
+                ...docu.data(),
+            }));
+            return productsList;
+        } else {
+            console.log('Colección vacía!');
+        }
     } catch (error) {
-      console.error('Error al obtener el documento: ', error);
+        console.error('Error al obtener el documento: ', error);
     }
-  }
-  
-  //enviar una nueva orden de pedido-----------------------------------
-  export async function sendOrder(order) {
+}
+
+// Enviar una nueva orden de pedido
+export async function sendOrder(order) {
     const ordersCollection = collection(db, 'orders');
-  
     try {
-      const docRef = await addDoc(ordersCollection, order);
-      console.log('Nueva orden generada: ' + docRef.id);
-      return docRef.id;
+        const docRef = await addDoc(ordersCollection, order);
+        console.log('Nueva orden generada: ' + docRef.id);
+        return docRef.id;
     } catch (error) {
-      console.log('Error al agregar el documento: ' + error);
+        console.log('Error al agregar el documento: ' + error);
     }
-  }
-  
-  //actualizacion de un producto-------------------------------------------
-  export async function updateProduct(id, toUpdate) {
+}
+
+// Actualización de un producto
+export async function updateProduct(id, toUpdate) {
     const itemRef = doc(db, 'products', id);
     try {
-      await updateDoc(itemRef, toUpdate);
+        await updateDoc(itemRef, toUpdate);
     } catch (error) {
-      console.log('Error de actualizacion: ' + error);
+        console.log('Error de actualización: ' + error);
     }
-  }
-  
-  //actualizacion de multiples items-------------------------------------
-  export async function updateMultipleItems() {
-    //abrimos el batch
-    const batch = writeBatch(db);
-    //creamos las referencias a los items que queremos actualizar
-    const itemRef1 = doc(db, 'products', 'XPwBaAUsLKObkFiAG2Cf');
-    const itemRef2 = doc(db, 'orders', '6mbFPxejpPOVYuCAChAb');
-    //realizar el update
-    batch.update(itemRef1, { category: 'accessories' });
-    batch.update(itemRef2, { total: 700 });
-    //llamada asincronica
+}
+
+// Obtener la cantidad de productos en el carrito
+export async function getCartItemCount() {
     try {
-      await batch.commit(); //ejecutando actualizaciones
-      console.log('Batch actualizado correctamente');
+        const querySnapshot = await getDocs(collection(db, 'cart'));
+        return querySnapshot.size; 
     } catch (error) {
-      console.log('Error de actualizacion: ' + error);
+        console.error("Error al obtener el carrito: ", error);
+        return 0; 
     }
-  }
+}
+
+// Actualizar la cantidad de productos en el carrito
+export async function updateCartItemCount(newCount) {
+    const cartDocRef = doc(db, 'cart', 'cartItem'); 
+    try {
+        await setDoc(cartDocRef, { count: newCount }, { merge: true }); 
+    } catch (error) {
+        console.error("Error al actualizar el carrito: ", error);
+    }
+}
