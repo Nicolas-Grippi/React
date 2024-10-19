@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getCartItemCount, updateCartItemCount } from '../firebase/firebase.js'; 
+import { getCartItemCount, updateCartItemCount } from '../../firebase/firebase'; 
 
 export default function CartWidget() {
   const [itemCount, setItemCount] = useState(0);

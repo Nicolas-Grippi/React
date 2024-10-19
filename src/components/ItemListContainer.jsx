@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getProducts } from '../firebase/firebase'; 
+import { getProducts } from '../../firebase/firebase'; 
 import { useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
@@ -28,7 +28,8 @@ const ItemListContainer = () => {
           <ul key={product.id}>
             <h2>{product.title}</h2>
             <img src={product.image} alt={product.title} />
-            <NavLink to={`/item/${product.id}`} className="btn">Detalles</NavLink>           
+            <NavLink to={`/item/${product.id}`} className="btn">Detalles</NavLink>
+            {console.log(`Enlace a detalles del producto: /item/${product.id}`)} 
           </ul>
         ))}
       </ul>
