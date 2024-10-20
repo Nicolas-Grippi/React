@@ -1,8 +1,25 @@
-# React + Vite
+# Escaloneta
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## funcionalidades , detalle de la pagina, tematica, posibiladaes de mov de rutas en el proyecto
 
-Currently, two official plugins are available:
+- 
+*
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1.librerias que use
+2.
+
+[Visita la web oficial de Escaloneta] (https://...para poner link de netlify etc de la pag)
+
+para compartir img del proyecto terminado
+![imagen del proyecto finalizado]( url de la img)
+
+**Texto en negrita**
+
+agregar emojis
+@ ✨
+
+### para ejecutar el el servidor de prueba del proyecto
+
+```
+npm run dev
+```

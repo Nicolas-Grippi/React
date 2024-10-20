@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, getDoc, getDocs, collection, query, where, setDoc, addDoc, } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, getDocs, collection, query, where, addDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAt8sFyMtHrHSeFHcX58O1JP_a_ArPuraU",
@@ -16,15 +16,15 @@ export const db = getFirestore(app);
 
 // Obtener un producto
 export async function getSingleProduct(id) {
-    console.log("ID recibido:", id); 
-    const documentRef = doc(db, 'products', id); 
+    console.log("ID recibido:", id);
+    const documentRef = doc(db, 'products', id);
 
     try {
         const snapshot = await getDoc(documentRef);
         if (snapshot.exists()) {
             return snapshot.data();
         } else {
-            console.log('El documento no existe!'); 
+            console.log('El documento no existe!');
         }
     } catch (error) {
         console.error("error al obtener el doc: ", error);
@@ -38,8 +38,8 @@ export async function getProducts() {
         if (querySnapshot.size !== 0) {
             const productsList = querySnapshot.docs.map((docu) => {
                 return {
+                    ...docu.data(),
                     id: docu.id,
-                    ...docu.data()
                 };
             });
             return productsList;
@@ -73,36 +73,28 @@ export async function filterProductsByCategory(category) {
     }
 }
 
-// Enviar una nueva orden de pedido
-export async function sendOrder(order) {
-    const ordersCollection = collection(db, 'orders');
-
+// Obtener los productos del carrito
+export const getCartItems = async () => {
     try {
-        const docRef = await addDoc(ordersCollection, order);
-        console.log('Nueva orden generada: ' + docRef.id);
-        return docRef.id;
+        const cartSnapshot = await getDocs(collection(db, 'cart'));
+        return cartSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     } catch (error) {
-        console.log('Error al agregar el documento: ' + error);
+        console.error('Error al obtener los items del carrito: ', error);
     }
-}
+};
 
-// Obtener la cantidad de productos en el carrito
-export async function getCartItemCount() {
-    try {
-        const querySnapshot = await getDocs(collection(db, 'cart'));
-        return querySnapshot.size;
-    } catch (error) {
-        console.error("Error al obtener el carrito: ", error);
-        return 0;
-    }
-}
+// Obtener el total de productos en el carrito
+export const getCartItemCount = async () => {
+    const items = await getCartItems();
+    return items.reduce((sum, item) => sum + item.quantity, 0);
+};
 
-// Actualizar la cantidad de productos en el carrito
-export async function updateCartItemCount(newCount) {
-    const cartDocRef = doc(db, 'cart', 'cartItem');
+// Enviar la orden a Firestore
+export const submitOrder = async (orderData) => {
     try {
-        await setDoc(cartDocRef, { count: newCount }, { merge: true });
+        const orderRef = await addDoc(collection(db, 'orders'), orderData);
+        return orderRef.id;
     } catch (error) {
-        console.error("Error al actualizar el carrito: ", error);
+        console.error("Error al enviar la orden: ", error);
     }
-}
+};

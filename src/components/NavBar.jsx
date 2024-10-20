@@ -38,7 +38,9 @@ export default function NavBar() {
             </NavLink>
           </button>
         </div>
-        <CartWidget />
+        <NavLink to="/Cart">
+        <CartWidget /> 
+      </NavLink>
       </nav>
     </>
   );

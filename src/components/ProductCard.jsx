@@ -1,7 +1,12 @@
 import { Link } from 'react-router-dom';
-import '../components/ProductCard.css';
+import { addToCart } from '../../firebase/firebase'; // Supongamos que tienes esta función
 
 export default function ProductCard({ product }) {
+  
+  const handleAddToCart = () => {
+    addToCart(product, 1); 
+  };
+
   return (
     <article className="card product-card">
       <img 
@@ -11,11 +16,9 @@ export default function ProductCard({ product }) {
       />
       <div className="card-body text-center">
         <h5 className="card-title">{product.title}</h5>
-        <button className="btn">
-          <Link to={`/product/${product.id}`} className="text-white text-decoration-none">Detalles</Link>
-        </button>
+        <button className="btn btn-primary mx-2" onClick={handleAddToCart}>Agregar al carrito</button>
+        <Link to={`/product/${product.id}`} className="btn btn-secondary mx-2">Detalles</Link>
       </div>
     </article>
   );
 }
-
