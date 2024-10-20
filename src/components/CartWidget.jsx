@@ -4,27 +4,29 @@ import { getCartItemCount, updateCartItemCount } from '../../firebase/firebase';
 export default function CartWidget() {
   const [itemCount, setItemCount] = useState(0);
 
+  // Obtener el número inicial de items en el carrito al cargar el componente
   useEffect(() => {
     const fetchCartCount = async () => {
       const count = await getCartItemCount();
-      // Si el resultado no es un número válido, asigna 0
       setItemCount(isNaN(count) ? 0 : count);
     };
     
     fetchCartCount();
   }, []);
 
+  // Función para agregar un item al carrito
   const addItem = async () => {
-    const newCount = isNaN(itemCount) ? 1 : itemCount + 1; // Evita NaN sumando correctamente
+    const newCount = isNaN(itemCount) ? 1 : itemCount + 1; // Evitar NaN sumando correctamente
     setItemCount(newCount);
-    await updateCartItemCount(newCount);
+    await updateCartItemCount(newCount); // Actualizar la cantidad en Firestore
   };
 
+  // Función para quitar un item del carrito
   const removeItem = async () => {
     if (itemCount > 0) {
-      const newCount = isNaN(itemCount) ? 0 : itemCount - 1; // Evita NaN restando correctamente
+      const newCount = isNaN(itemCount) ? 0 : itemCount - 1; // Evitar NaN restando correctamente
       setItemCount(newCount);
-      await updateCartItemCount(newCount);
+      await updateCartItemCount(newCount); // Actualizar la cantidad en Firestore
     }
   };
 

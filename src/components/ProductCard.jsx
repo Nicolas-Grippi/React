@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { addToCart } from '../../firebase/firebase'; // Supongamos que tienes esta función
+import { addToCart } from '../../firebase/firebase';
 
 export default function ProductCard({ product }) {
   
@@ -11,7 +11,7 @@ export default function ProductCard({ product }) {
     <article className="card product-card">
       <img 
         src={product.image} 
-        className="card-img-top" 
+        className="card-img-top img-fluid" 
         alt={product.title} 
       />
       <div className="card-body text-center">
