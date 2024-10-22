@@ -1,40 +1,67 @@
+import '../components/ProductCard.css'; 
 import { useEffect, useState } from 'react';
-import { getProducts } from '../../firebase/firebase'; 
 import { useParams } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+import { db } from '../../firebase/firebase.js';  // Asegúrate de que esta ruta sea correcta
+import { collection, query, where, getDocs } from 'firebase/firestore';  // Asegúrate de que esta línea esté así
+import ProductCard from './ItemList.jsx';
 
-const ItemListContainer = () => {
-  const [products, setProducts] = useState([]);
-  const { category } = useParams(); 
+function ItemListContainer() {
+    const { id } = useParams();
+    const [productos, setProductos] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const allProducts = await getProducts();
-      const filteredProducts = category
-        ? allProducts.filter(product => product.category === category)
-        : allProducts;
+    const titulo = id === "bebidas" ? "Bebidas"
+        : id === "cocteleria" ? "Accesorios para tu bar"
+            : "Todos los Productos";
 
-      setProducts(filteredProducts);
-    };
+    useEffect(() => {
+        const productosCollection = collection(db, 'products');
+        const q = id ? query(productosCollection, where('category', '==', id)) : productosCollection;
 
-    fetchProducts();
-  }, [category]);
+        getDocs(q)
+            .then((querySnapshot) => {
+                const productosFiltrados = querySnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    img: doc.data().img,
+                    ...doc.data()
+                }));
 
-  return (
-    <div>
-      <h1>Lista de Productos</h1>
-      <ul>
-        {products.map((product) => (
-          <ul key={product.id}>
-            <h2>{product.title}</h2>
-            <img src={product.image} alt={product.title} />
-            <NavLink to={`/item/${product.id}`} className="btn">Detalles</NavLink>
-            {console.log(`Enlace a detalles del producto: /item/${product.id}`)} 
-          </ul>
-        ))}
-      </ul>
-    </div>
-  );
-};
+                setProductos(productosFiltrados);
+            })
+            .catch((error) => {
+                console.error('Error al obtener productos', error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }, [id]);
+
+    if (loading) {
+        return (
+            <div className='loading-circle'>
+                <svg viewBox="25 25 50 50" className='loader'>
+                    <circle r="20" cy="50" cx="50"></circle>
+                </svg>
+            </div>
+        );
+    }
+
+    return (
+        <>
+            <div className='title-categoria'>
+                <h2>{titulo}</h2>
+            </div>
+            <div className='contenedor-cards'>
+                {productos.length > 0 ? (
+                    productos.map((producto) => (
+                        <ProductCard key={producto.id} producto={producto} />
+                    ))
+                ) : (
+                    <p>No hay productos disponibles en esta categoría.</p>
+                )}
+            </div>
+        </>
+    );
+}
 
 export default ItemListContainer;

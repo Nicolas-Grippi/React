@@ -1,32 +1,43 @@
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { getSingleProduct } from '../../firebase/firebase';
+import { doc, getDoc, getFirestore } from 'firebase/firestore';
+import ItemDetail from './ItemDetails'; // Asegúrate de importar correctamente tu componente ItemDetail
 
-const ItemDetailsContainer = () => {
-    const { id } = useParams(); 
+const ItemDetailContainer = () => {
+    const { id } = useParams();
     const [product, setProduct] = useState(null);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchProduct = async () => {
-            const productData = await getSingleProduct(id);
-            setProduct(productData);
-        };
+        const db = getFirestore();
+        const getProduct = doc(db, 'products', id);
 
-        fetchProduct();
+        getDoc(getProduct)
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    setProduct({ id: snapshot.id, ...snapshot.data() });
+                } else {
+                    setError("El producto no existe.");
+                }
+            })
+            .catch((error) => {
+                setError("Error obteniendo el producto: " + error.message);
+            });
     }, [id]);
 
-    if (!product) return <p>Cargando detalles del producto...</p>; 
+    if (error) {
+        return <p>{error}</p>;
+    }
 
     return (
         <div>
-            <h2>Detalles de {product.title}</h2>
-            <img src={product.image} class="img-fluid" alt={product.title} />
-            <p><strong>Categoría:</strong> {product.category}</p>
-            <p><strong>Descripción:</strong> {product.description}</p>
-            <p><strong>Talles disponibles:</strong> {product.description}</p> 
-            <p><strong>Precio:</strong> {product.price}</p>
+            {product ? <ItemDetail product={product} /> : <div className='loading-circle'>
+                <svg viewBox="25 25 50 50" className='loader'>
+                    <circle r="20" cy="50" cx="50"></circle>
+                </svg>
+            </div>}
         </div>
     );
 };
 
-export default ItemDetailsContainer;
+export default ItemDetailContainer;

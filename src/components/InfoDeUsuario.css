@@ -1,0 +1,101 @@
+.container-form {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: Poppins, sans-serif;
+    background: linear-gradient(30deg, rgba(97, 10, 197, 0.959), rgba(137, 36, 219, 0.822), rgba(137, 36, 219, 0.822), rgba(97, 10, 197, 0.959));
+}
+
+.title-form {
+    margin-block: 1.5rem;
+    padding-left: 1.5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: end;
+    position: relative;
+    color: white;
+}
+
+.title-form h2 {
+    max-width: 400px;
+    font-size: 30px;
+    font-weight: 500;
+    text-align: left;
+    line-height: 1.6;
+}
+
+ion-icon[name="checkmark-outline"] {
+    color: rgb(65, 236, 65);
+    font-size: 40px;
+    position: absolute;
+    bottom: 6px;
+}
+
+.formulario {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+form {
+    width: clamp(200px, 350px, 40%);
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: white;
+}
+
+input {
+    opacity: 0.8;
+    transition: all ease .3s;
+    width: 100%;
+    padding: 12px;
+    outline: none;
+    font-size: 15px;
+    border-radius: 2px;
+    border: 1px solid black;
+}
+
+input::placeholder {
+    color: black;
+}
+
+input:focus {
+    background-color: #ffffff;
+    opacity: 1;
+}
+
+.fin-compra {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fin-compra button {
+    color: white;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background-color: #4a05aa;
+    transition: transform 0.3s ease, background-color 0.5s ease;
+    margin-top: 1rem;
+}
+
+.fin-compra button:hover {
+    background-color: #6b16da;
+    transform: scale(1.02);
+}

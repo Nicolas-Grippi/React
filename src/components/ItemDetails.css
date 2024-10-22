@@ -1,0 +1,133 @@
+.contenedor-detalles {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    min-height: 100vh;
+}
+
+.left-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-img img {
+    width: 370px;
+    object-fit: contain;
+    height: 400px;
+    border: 1px solid #dddddd;
+    background-color: #f3f3f3;
+}
+
+.contenedor-product {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-around;
+    font-family: "Poppins", sans-serif;
+}
+
+.descripcion-product h3 {
+    margin: 20px 0 15px;
+    font-size: 40px;
+    line-height: 1.5;
+    font-weight: bold;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.precio-product {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.descripcion-product p {
+    margin-top: 1.5rem;
+    font-size: 17px;
+    max-width: 500px;
+}
+
+.description-text {
+    font-weight: bold;
+}
+
+.contenedor-compra {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.contador-product {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border: 1px solid rgb(179, 179, 179);
+    width: 150px;
+    padding: 8px 20px;
+    border-radius: 5px;
+}
+
+.contador-product span {
+    font-size: 18px;
+}
+
+.btn-contador-resta,
+.btn-contador-suma {
+    font-size: 20px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.add-carrito {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 15px;
+    gap: 15px;
+    background-color: #181717;
+    outline: 3px #181717 solid;
+    outline-offset: -3px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: 400ms;
+}
+
+.add-carrito .text-buy {
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: 400ms;
+}
+
+.add-carrito ion-icon {
+    transition: 400ms;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.add-carrito:hover {
+    background-color: transparent;
+}
+
+.add-carrito:hover .text-buy {
+    color: #181717;
+}
+
+.add-carrito:hover ion-icon {
+    color: #181717;
+}
+
+.mi-toast-body {
+    font-size: 16px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    font-weight: 600;
+}
+
+.mi-toast-progress {
+    border-radius: 2px;
+    background: linear-gradient(to right, #b817d8, #b300ff, #ff00ea);
+    transition: width 0.3s;
+}

@@ -1,0 +1,281 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.container-carrito {
+    width: 100%;
+    min-height: 50vh;
+    padding: 0 30px;
+    font-family: "Montserrat", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+}
+
+.content-carrito {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+h1 {
+    font-size: 30px;
+    text-align: left;
+    margin: 2rem 0;
+}
+
+.img-carrito {
+    width: auto;
+    height: 35px;
+}
+
+.cart-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+}
+
+.cart-empty h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.empty-red {
+    color: red;
+}
+
+.button {
+    border-radius: 8px;
+    border: 1px solid #fff;
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(15px);
+    transition: all 0.3s ease-in-out;
+    padding-block: 0.5rem;
+    padding-inline: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+    gap: 10px;
+    outline: none;
+    overflow: hidden;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+ion-icon[name="arrow-forward-outline"] {
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+}
+
+.button:hover {
+    box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.5);
+}
+
+.button:hover ion-icon[name="arrow-forward-outline"] {
+    transform: translate(4px);
+    transition: all .5s ease;
+}
+
+.button:hover::before {
+    animation: shine 1s ease-out infinite;
+}
+
+.button::before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100%;
+    background-image: linear-gradient(120deg,
+            rgba(255, 255, 255, 0) 30%,
+            rgba(255, 255, 255, 0.8),
+            rgba(255, 255, 255, 0) 70%);
+    top: 0;
+    left: -100px;
+    opacity: 0.6;
+}
+
+@keyframes shine {
+    0% {
+        left: -100px;
+    }
+
+    60% {
+        left: 100%;
+    }
+
+    to {
+        left: 100%;
+    }
+}
+
+.tabla-content {
+    width: 100%;
+    background-color: rgb(207, 206, 206);
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.tabla-content th,
+.tabla-content td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid hwb(281 13% 23% / 0.596);
+    box-shadow: 1px 1px 1px rgb(145, 33, 196);
+    vertical-align: middle;
+}
+
+.tabla-content th {
+    background-color: #4c0b68;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.tabla-content td img {
+    width: 90px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.tabla-content td {
+    vertical-align: middle;
+    text-align: center;
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: .5px;
+}
+
+.tabla-content th:nth-child(1),
+.tabla-content td:nth-child(1) {
+    width: 10%;
+}
+
+.tabla-content th:nth-child(2),
+.tabla-content td:nth-child(2) {
+    width: 15%;
+}
+
+.tabla-content th:nth-child(3),
+.tabla-content td:nth-child(3) {
+    width: 10%;
+}
+
+.tabla-content th:nth-child(4),
+.tabla-content td:nth-child(4) {
+    width: 10%;
+}
+
+.tabla-content th:nth-child(5),
+.tabla-content td:nth-child(5) {
+    width: 10%;
+}
+
+.tabla-content th:nth-child(6),
+.tabla-content td:nth-child(6) {
+    width: 10%;
+}
+
+.cantidad-count {
+    font-size: 18px;
+}
+
+.btn-cantidad {
+    background-color: #4c0b68;
+    padding: 0 5px;
+    width: 30px;
+    color: #ffffff;
+    border: none;
+    outline: none;
+    border-radius: 50%;
+    margin: 0 7px;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.container-vaciarCart {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row-reverse;
+    margin-top: 1rem;
+}
+
+.container-vaciarCart h2 {
+    font-size: 20px;
+}
+
+.button-vaciar {
+    width: 120px;
+    background-color: #4c0b68;
+    color: #ffffff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding-block: .5rem;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 1rem;
+    transition: all .3s ease;
+}
+
+.button-vaciar:hover {
+    transform: scale(1.03);
+    background-color: #6b1192;
+}
+
+.link-prod:active {
+    color: #fa1818;
+}
+
+.link-prod:hover {
+    color: rgb(0, 0, 0);
+}
+
+ion-icon[name="close-outline"] {
+    font-size: 22px;
+    background-color: rgb(126, 126, 126);
+    border-radius: 50%;
+    padding: 3px;
+    cursor: pointer;
+    transition: all .3s ease;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+}
+
+ion-icon[name="close-outline"]:hover {
+    background-color: rgb(211, 18, 18);
+}
+
+.terminar-compra-cart {
+    width: 200px;
+    background-color: #4c0b68;
+    color: #ffffff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: .5rem;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 1rem;
+    transition: all .3s ease;
+}
+
+.terminar-compra-cart:hover {
+    transform: scale(1.03);
+    background-color: #6b1192;
+}
+
+.center-btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}

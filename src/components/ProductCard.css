@@ -1,16 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap');
 
-.image-container {
-  width: 20px; 
-  overflow: hidden;
+.card {
+    width: 280px;
+    height: 350px;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #cecece;
+    box-shadow: 3px 3px 3px 2px rgba(77, 77, 77, 0.822);
+    padding: 15px;
+    font-family: "Poppins", sans-serif;
+    border-radius: 30px;
+    transition: all 500ms ease-out;
+    cursor: pointer;
+    color: black;
 }
 
-.product-card {
-  width: 100px; /* Establece un ancho fijo para la tarjeta */
-  height: auto; /* Permite que la altura sea automática */
+.card:hover {
+    background-color: #e0e0e0;
 }
 
 
-.product-card img {
-  max-width: 50%; /* Esto asegurará que la imagen no exceda el ancho de su contenedor */
-  height: auto; /* Mantiene la proporción de la imagen */
+.description-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    text-align: left;
+    gap: .3rem;
+    padding: 15px 0;
+}
+
+.description-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.parrafo-desc {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.description-card p>span {
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.card img {
+    object-fit: contain;
+    width: 170px;
+    height: 180px;
+    transition: all 500ms cubic-bezier(0.202, 0.29, 0.01, 1.27);
+}
+
+.card:hover>img {
+    transform: translateY(-10px);
+}
+
+.buy-product {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buy-product span {
+    font-size: 15px;
+    font-weight: 600;
+    overflow: hidden;
+}
+
+.btn-buy {
+    height: auto;
+    border: 2px solid #181C14;
+    cursor: pointer;
+    border-radius: 3px;
+    overflow: hidden;
+    transition: all 300ms ease-in;
+    padding: 5px;
+    font-size: 15px;
+    font-weight: 600;
+    color: rgb(0, 0, 0);
+    letter-spacing: .5px;
+}
+
+.btn-buy:hover {
+    background-color: #474747;
+    color: #ffffff;
+}
+
+.content-products {
+    font-family: "Almarai", sans-serif;
+    width: 100%;
+    margin: 4rem 0;
+    padding: 0 50px;
+}
+
+.title-products {
+    font-size: 5rem;
+    letter-spacing: .5rem;
+}
+
+.parragraph-products {
+    font-size: 2rem;
+    width: fit-content;
+    font-weight: 600;
+}
+
+.border {
+    width: 35%;
+    border-style: solid;
+    border-width: 5px 0 0 0;
+    border-color: rgb(0, 0, 0);
+}
+
+.title-categoria {
+    display: flex;
+    flex-direction: column;
+    margin: 3rem 0;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.title-categoria h2 {
+    font-size: 2.5rem;
+    margin-left: 2rem;
+    color: #433878;
+    font-family: "Poppins", sans-serif;
+}
+
+.loading-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.loader {
+    width: 4.25em;
+    transform-origin: center;
+    animation: rotate4 2s linear infinite;
+}
+
+.loader circle {
+    fill: none;
+    stroke: hsl(214, 97%, 59%);
+    stroke-width: 2;
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    animation: dash4 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate4 {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes dash4 {
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 90, 200;
+        stroke-dashoffset: -35px;
+    }
+
+    100% {
+        stroke-dashoffset: -125px;
+    }
 }

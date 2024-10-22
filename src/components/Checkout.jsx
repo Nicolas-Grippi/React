@@ -1,144 +1,52 @@
-import React, { useEffect, useState } from 'react';
-import { getCartItems } from '../../firebase/firebase'; // Asegúrate de tener esta función
-import { submitOrder } from '../../firebase/firebase'; // Para enviar la orden
+import { useContext } from 'react';
+import { CartContext } from '../../context/CartContext';
+import { Link } from 'react-router-dom';
+import '../components/Checkout.css';
+
 
 export default function Checkout() {
-  const [cartItems, setCartItems] = useState([]);
-  const [totalOrder, setTotalOrder] = useState(0);
-  const [form, setForm] = useState({
-    name: '',
-    lastName: '',
-    phone: '',
-    email: '',
-    repeatEmail: ''
-  });
-  const [emailError, setEmailError] = useState(false);
+    const { order } = useContext(CartContext);
 
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      const items = await getCartItems();
-      setCartItems(items);
-      
-      // Calcular el total de la orden
-      const total = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-      setTotalOrder(total);
-    };
-    
-    fetchCartItems();
-  }, []);
-
-  const handleInputChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (form.email !== form.repeatEmail) {
-      setEmailError(true);
-    } else {
-      setEmailError(false);
-      
-      // Datos de la orden
-      const orderData = {
-        customer: {
-          name: form.name,
-          lastName: form.lastName,
-          phone: form.phone,
-          email: form.email,
-        },
-        items: cartItems,
-        total: totalOrder,
-        date: new Date().toISOString()
-      };
-
-      // Enviar la orden a Firestore
-      const orderId = await submitOrder(orderData);
-      console.log('Orden confirmada con ID:', orderId);
-
-      // Redirigir o mostrar un mensaje de confirmación
-    }
-  };
-
-  return (
-    <div>
-      <h2>Checkout</h2>
-      
-      {cartItems.length === 0 ? (
-        <p>No hay productos en el carrito</p>
-      ) : (
+    return (
         <>
-          <ul>
-            {cartItems.map((item) => (
-              <li key={item.id}>
-                {item.title} - Cantidad: {item.quantity} - Precio: ${item.price}
-              </li>
-            ))}
-          </ul>
-          <h4>Total de la orden: ${totalOrder}</h4>
-
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>Nombre:</label>
-              <input 
-                type="text" 
-                name="name" 
-                value={form.name} 
-                onChange={handleInputChange} 
-                required 
-              />
-            </div>
-            
-            <div>
-              <label>Apellido:</label>
-              <input 
-                type="text" 
-                name="lastName" 
-                value={form.lastName} 
-                onChange={handleInputChange} 
-                required 
-              />
-            </div>
-
-            <div>
-              <label>Teléfono:</label>
-              <input 
-                type="tel" 
-                name="phone" 
-                value={form.phone} 
-                onChange={handleInputChange} 
-                required 
-              />
-            </div>
-
-            <div>
-              <label>Email:</label>
-              <input 
-                type="email" 
-                name="email" 
-                value={form.email} 
-                onChange={handleInputChange} 
-                required 
-              />
-            </div>
-
-            <div>
-              <label>Repetir Email:</label>
-              <input 
-                type="email" 
-                name="repeatEmail" 
-                value={form.repeatEmail} 
-                onChange={handleInputChange} 
-                required 
-              />
-            </div>
-
-            {emailError && <p style={{ color: 'red' }}>Los emails no coinciden</p>}
-
-            <button type="submit">Confirmar Orden</button>
-          </form>
+            {order ? (
+                <div className="container-compra">
+                    {order.buyer ? (
+                        <h2 className="thank-you-title">¡GRACIAS POR TU COMPRA, {order.buyer.nombre}!</h2>
+                    ) : (
+                        <h2 className="thank-you-title">¡GRACIAS POR TU COMPRA!</h2>
+                    )}
+                    <div className="order-details">
+                        <p className="order-id">ID de la Orden: <span>{order.id}</span></p>
+                        <h4 className="product-title">Productos comprados:</h4>
+                        {order.items.map((product) => (
+                            <div key={product.id} className="product-item">
+                                <p className="product-name">{product.nombre}</p>
+                                <p className="product-quantity"><span className='subrayado'>Cantidad:</span> {product.cantidad}</p>
+                                <p className="product-price"><span className='subrayado'>Precio unitario:</span> <span>${product.precio.toLocaleString()}</span></p>
+                                <p className="product-subtotal"><span className='subrayado'>Precio total:</span> <span>${(product.precio * product.cantidad).toLocaleString()}</span></p>
+                            </div>
+                        ))}
+                        <h3 className="final-price">PRECIO FINAL: <span>${order.total.toLocaleString()}</span></h3>
+                        <h4 className="buyer-info-title">Datos del comprador:</h4>
+                        <div className='info-buyer'>
+                            <p className='buyer-info'><span>Nombre Completo:</span> {order.buyer.nombre}</p>
+                            <p className='buyer-info'><span>DNI: </span>{order.buyer.dni}</p>
+                            <p className='buyer-info'><span>Email: </span>{order.buyer.email}</p>
+                            <p className='buyer-info'><span>Dirección:</span> {order.buyer.direccion}</p>
+                            <p className='buyer-info'><span>Localidad: </span>{order.buyer.localidad}</p>
+                            <p className='buyer-info'><span>Código Postal: </span>{order.buyer.cp}</p>
+                        </div>
+                    </div>
+                    <Link to={'/'}><button className='home-link'>Volver al Inicio</button></Link>
+                </div>
+            ) : (
+                <div className='loading-circle'>
+                    <svg viewBox="25 25 50 50" className='loader'>
+                        <circle r="20" cy="50" cx="50"></circle>
+                    </svg>
+                </div>
+            )}
         </>
-      )}
-    </div>
-  );
+    );
 }

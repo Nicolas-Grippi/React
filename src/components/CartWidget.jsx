@@ -1,40 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { getCartItemCount, updateCartItemCount } from '../../firebase/firebase';
+import '../components/CartWidget.css';
+import { NavLink } from "react-router-dom";
+import { CartContext } from '../../context/CartContext';
+import { useContext } from 'react';
 
 export default function CartWidget() {
-  const [itemCount, setItemCount] = useState(0);
 
-  // Obtener el número inicial de items en el carrito al cargar el componente
-  useEffect(() => {
-    const fetchCartCount = async () => {
-      const count = await getCartItemCount();
-      setItemCount(isNaN(count) ? 0 : count);
-    };
-    
-    fetchCartCount();
-  }, []);
-
-  // Función para agregar un item al carrito
-  const addItem = async () => {
-    const newCount = isNaN(itemCount) ? 1 : itemCount + 1; // Evitar NaN sumando correctamente
-    setItemCount(newCount);
-    await updateCartItemCount(newCount); // Actualizar la cantidad en Firestore
-  };
-
-  // Función para quitar un item del carrito
-  const removeItem = async () => {
-    if (itemCount > 0) {
-      const newCount = isNaN(itemCount) ? 0 : itemCount - 1; // Evitar NaN restando correctamente
-      setItemCount(newCount);
-      await updateCartItemCount(newCount); // Actualizar la cantidad en Firestore
-    }
-  };
+  const { cantidadEnCarrito } = useContext(CartContext);
 
   return (
-    <>
-      <button className='btn btn-dark mx-2' onClick={removeItem}>-</button>
-      <span>{itemCount}</span> {/* Asegúrate de que itemCount sea un número válido */}
-      <button className='btn btn-dark mx-2' onClick={addItem}>+</button>
-    </>
+    <NavLink to={"/cart"}>
+      <div className='cart-widget'>
+        <ion-icon name="cart-outline"></ion-icon>
+        <span className='cart-notification'>{cantidadEnCarrito()}</span>
+      </div>
+    </NavLink>
   );
-}
+};

@@ -1,0 +1,135 @@
+.container-compra {
+    min-height: 130vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.thank-you-title {
+    font-family: "Montserrat", sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    color: #7719b6;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.order-details {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.order-id,
+.loading-message {
+    text-align: center;
+    font-weight: bold;
+    font-size: 17px;
+    margin-bottom: 20px;
+}
+
+.order-id span {
+    color: #7719b6;
+}
+
+.product-title,
+.buyer-info-title {
+    margin: 5px 0;
+    font-weight: bold;
+    font-size: 16.5px;
+    font-family: Poppins, sans-serif;
+}
+
+.product-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #fff;
+}
+
+.product-price,
+.product-subtotal,
+.product-quantity {
+    line-height: 1.55;
+    font-family: monospace;
+    letter-spacing: -1px;
+}
+
+.subrayado {
+    border-bottom: 1px solid black;
+}
+
+.product-name {
+    font-size: 15px;
+    color: #000000;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-family: Poppins, sans-serif;
+}
+
+.product-quantity,
+.product-price,
+.product-subtotal {
+    font-size: 14px;
+    color: #555;
+}
+
+.final-price {
+    font-size: 20px;
+    color: #000000;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px 0;
+    font-family: Poppins, sans-serif;
+    border: 1px solid rgba(0, 0, 0, 0.247);
+}
+
+.buyer-info {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #555;
+    font-family: Poppins, sans-serif;
+}
+
+.info-buyer {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.buyer-info span {
+    font-weight: bold;
+}
+
+.home-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-link {
+    color: white;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background-color: #4a05aa;
+    transition: transform 0.3s ease, background-color 0.5s ease;
+
+}
+
+.home-link:hover {
+    background-color: #6b16da;
+    transform: scale(1.02);
+}
