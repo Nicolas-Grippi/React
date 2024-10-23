@@ -5,7 +5,6 @@ import { useState, useContext } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 function ItemDetail({ product, initialCount = 1 }) {
     const { agregarAlCarrito, stock, actualizarStock } = useContext(CartContext);
     const [cantidad, setCantidad] = useState(initialCount);
@@ -36,7 +35,7 @@ function ItemDetail({ product, initialCount = 1 }) {
 
     const itemAgregado = () => {
         const textoUnidad = cantidad === 1 ? 'unidad' : 'unidades';
-        toast.success(`¡Se agrego ${cantidad} ${textoUnidad} de ${product.nombre} al carrito!`, {
+        toast.success(`¡Se agregó ${cantidad} ${textoUnidad} de ${product.nombre} al carrito!`, {
             position: "top-right",
             autoClose: 1500,
             hideProgressBar: false,
@@ -47,11 +46,10 @@ function ItemDetail({ product, initialCount = 1 }) {
         });
     };
 
-
     return (
         <div className="contenedor-detalles">
             <div className='left-img'>
-                <img src={product.img} alt={product.nombre} />
+                <img src={product.image} alt={product.nombre} />
             </div>
             <div className='contenedor-product'>
                 <div className='descripcion-product'>
@@ -75,7 +73,6 @@ function ItemDetail({ product, initialCount = 1 }) {
             </div>
         </div>
     );
-
 }
 
 export default ItemDetail;

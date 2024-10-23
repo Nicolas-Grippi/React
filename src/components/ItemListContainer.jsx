@@ -1,18 +1,18 @@
-import '../components/ProductCard.css'; 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { db } from '../../firebase/firebase.js';  // Asegúrate de que esta ruta sea correcta
-import { collection, query, where, getDocs } from 'firebase/firestore';  // Asegúrate de que esta línea esté así
-import ProductCard from './ItemList.jsx';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+import { db } from '../../firebase/firebase'; 
+import ProductCard from './ProductCard';
 
 function ItemListContainer() {
     const { id } = useParams();
     const [productos, setProductos] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const titulo = id === "bebidas" ? "Bebidas"
-        : id === "cocteleria" ? "Accesorios para tu bar"
-            : "Todos los Productos";
+    const titulo = id === "camiseta" ? "Camiseta"
+        : id === "pantalon" ? "Pantalon"
+        : id === "campera" ? "Campera"
+        : "Todos los Productos";
 
     useEffect(() => {
         const productosCollection = collection(db, 'products');
@@ -22,7 +22,7 @@ function ItemListContainer() {
             .then((querySnapshot) => {
                 const productosFiltrados = querySnapshot.docs.map(doc => ({
                     id: doc.id,
-                    img: doc.data().img,
+                    image: doc.data().image, // Asegúrate de que estás accediendo a 'image'
                     ...doc.data()
                 }));
 

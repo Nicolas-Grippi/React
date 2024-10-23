@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import { CartContext } from '../context/CartContext'; 
 import { initializeApp } from "firebase/app";
 import { getFirestore, addDoc, collection } from 'firebase/firestore';
 
@@ -26,3 +28,30 @@ export async function sendOrder(order) {
         console.log('Error al agregar el documento' + error)
     }
 }   
+
+
+
+export const addToCart = (product, quantity) => {
+    const { agregarAlCarrito } = useContext(CartContext);
+    agregarAlCarrito(product, quantity);
+};
+
+export async function getProducts(){
+    try{
+        const querySnapshot = await getDocs(collection(db,"products"))
+        if(querySnapshot.size !==0){
+            const productList = querySnapshot.docs.map((docu)=>{
+                console.log (docu.data(),"soff");
+                return{
+                    id: docu.id,
+                    ...docu.data(),
+                }
+            })
+            return productList;
+        }else{
+            console.log ("coleccion Vacia")
+        }
+    } catch(error){
+        console.error("Error al obtener el doc: ", error);
+    }
+}

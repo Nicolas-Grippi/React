@@ -1,43 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { doc, getDoc, getFirestore } from 'firebase/firestore';
-import ItemDetail from './ItemDetails'; // Asegúrate de importar correctamente tu componente ItemDetail
+import { getProducts } from '../../firebase/firebase'; // Asegúrate de importar correctamente tu db
 
-const ItemDetailContainer = () => {
-    const { id } = useParams();
-    const [product, setProduct] = useState(null);
-    const [error, setError] = useState(null);
+import ItemDetail from './ItemDetails'; // Asegúrate de importar este componente
+
+const ItemDetailsContainer = () => {
+    const { id } = useParams(); // Obtiene el ID como string
+    const [producto, setProducto] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
-        const db = getFirestore();
-        const getProduct = doc(db, 'products', id);
+        const fetchProduct = async () => {
+            try {
+                const products = await getProducts(); // Obtiene la lista de productos
 
-        getDoc(getProduct)
-            .then((snapshot) => {
-                if (snapshot.exists()) {
-                    setProduct({ id: snapshot.id, ...snapshot.data() });
+                // Filtra el producto por ID
+                const productData = products.find(product => product.id === id); // Asegúrate de que `id` sea comparado correctamente
+
+                if (productData) {
+                    setProducto(productData);
                 } else {
-                    setError("El producto no existe.");
+                    setError(true); // Manejo del error si no existe el producto
                 }
-            })
-            .catch((error) => {
-                setError("Error obteniendo el producto: " + error.message);
-            });
+            } catch (err) {
+                console.error('Error al obtener el producto', err);
+                setError(true);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProduct();
     }, [id]);
 
+    if (loading) {
+        return <div>Cargando...</div>; // Puedes mejorar esta parte con un loader
+    }
+
     if (error) {
-        return <p>{error}</p>;
+        return <div>No hay producto disponible con este ID</div>;
     }
 
     return (
         <div>
-            {product ? <ItemDetail product={product} /> : <div className='loading-circle'>
-                <svg viewBox="25 25 50 50" className='loader'>
-                    <circle r="20" cy="50" cx="50"></circle>
-                </svg>
-            </div>}
+            {producto && <ItemDetail product={producto} />}
         </div>
     );
 };
 
-export default ItemDetailContainer;
+export default ItemDetailsContainer;

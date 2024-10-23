@@ -49,7 +49,7 @@ export const CartProvider = ({ children }) => {
     const agregarAlCarrito = (product, cantidad) => {
         const itemAgregado = { ...product, cantidad };
         const nuevoCarrito = [...carrito];
-        const estaEnElCarrito = nuevoCarrito.find((product) => product.id === itemAgregado.id);
+        const estaEnElCarrito = nuevoCarrito.find((item) => item.id === itemAgregado.id);
 
         if (estaEnElCarrito) {
             estaEnElCarrito.cantidad += cantidad;

@@ -1,48 +1,35 @@
 import './App.css';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import HomeView from './views/HomeView/Home';
 import InfoView from './views/InfoView/Info';
+
 import Navbar from './components/NavBar';
 import Cart from './components/Cart';
 import ItemListContainer from './components/ItemListContainer';
-import Checkout from './components/Checkout';
-import ItemDetailContainer from './components/ItemDetailsContainer';
+import ItemDetailsContainer from './components/ItemDetailsContainer';
+import CheckOut from './components/Checkout';
 import { CartProvider } from "../context/CartContext";
-
-function MainContent() {
-  const location = useLocation();
-
-  return (
-    <>
-      <div className='contenedor-principal'>
-        <Routes>
-          <Route exact path="/" element={<HomeView />} />
-          <Route exact path="/infobuyer" element={<InfoView />} />
-          <Route path="/category/:id" element={<ItemListContainer />} />
-          <Route exact path="/item/:id" element={<ItemDetailContainer />} />
-          <Route exact path="/producto/:id" element={<ItemDetailContainer />} />
-          <Route exact path="/cart" element={<Cart />} />
-          <Route path="/checkout/:orderId" element={<Checkout />} />
-        </Routes>
-      </div>
-      {location.pathname !== '/cart' && location.pathname !== '/infobuyer' && !location.pathname.startsWith('/Checkout') && (
-        
-      )}
-    </>
-  );
-}
 
 function App() {
   return (
-    <div className='App'>
-      <CartProvider>
-        <BrowserRouter>
+    <CartProvider>
+      <BrowserRouter>
+        <div className='App'>
           <Navbar />
-          <MainContent /> {/* Agregado aquí para mostrar el contenido principal */}
-        </BrowserRouter>
-      </CartProvider>
-    </div>
+          <div className='contenedor-principal'>
+            <Routes>
+              <Route exact path="/" element={<HomeView />} />
+              <Route exact path="/infobuyer" element={<InfoView />} />
+              <Route path="/category/:id" element={<ItemListContainer />} />
+              <Route path="/id/:id" element={<ItemDetailsContainer />} /> 
+              <Route exact path="/cart" element={<Cart />} />
+              <Route path="/checkout/:orderId" element={<CheckOut />} />
+            </Routes>
+          </div>
+        </div>
+      </BrowserRouter>
+    </CartProvider>
   );
 }
 
