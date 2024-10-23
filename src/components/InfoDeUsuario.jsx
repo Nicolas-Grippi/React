@@ -1,153 +1,58 @@
-import { useState, useContext } from 'react';
-import '../components/InfoDeUsuario.css';
-
-import { useNavigate } from 'react-router-dom';
+import { useContext, useState } from 'react';
 import { CartContext } from '../../context/CartContext';
+import { sendOrder } from '../../firebase/firebase'; // Importa la función
 
-const UserInfo = () => {
-    const [nombre, setNombre] = useState('');
-    const [dni, setDni] = useState('');
-    const [email, setEmail] = useState('');
-    const [direccion, setDireccion] = useState('');
-    const [localidad, setLocalidad] = useState('');
-    const [cp, setCP] = useState('');
-    const [error, setError] = useState('');
+const InfoBuyer = () => {
+    const { carrito, precioTotal, vaciarCarrito } = useContext(CartContext);
+    const [buyer, setBuyer] = useState({
+        nombre: '',
+        apellido: '',
+        telefono: '',
+        email: '',
+        emailConfirm: ''
+    });
 
-    const { crearOrden, vaciarCarrito } = useContext(CartContext);
-    const navigate = useNavigate();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-    const handleNombreChange = (e) => {
-        const regex = /^[a-zA-Z\s]*$/;
-        if (regex.test(e.target.value)) {
-            setNombre(e.target.value);
-        }
-    };
-
-    const handleDniChange = (e) => {
-        const value = e.target.value;
-        if (/^\d*$/.test(value)) {
-            setDni(value);
-        }
-    };
-
-    const handleSubmit = () => {
-        if (!nombre || !dni || !email || !direccion || !localidad || !cp) {
-            setError('Todos los campos son obligatorios.');
-            console.log({ nombre, dni, email, direccion, localidad, cp });
+        if (buyer.email !== buyer.emailConfirm) {
+            alert('Los correos electrónicos no coinciden');
             return;
         }
 
-        if (!/\S+@\S+\.\S+/.test(email)) {
-            setError('El formato del email es incorrecto.');
-            return;
-        }
-
-        if ([nombre, direccion, localidad, cp].some(field => field.length < 2) || dni.length < 8) {
-            setError('Todos los campos deben tener al menos 2 caracteres. El DNI debe tener al menos 8 dígitos.');
-            return;
-        }
-
-        const buyer = {
-            nombre,
-            dni,
-            email,
-            direccion,
-            localidad,
-            cp,
+        const order = {
+            buyer,
+            items: carrito.map(item => ({
+                id: item.id,
+                nombre: item.nombre,
+                cantidad: item.cantidad,
+                precio: item.precio,
+            })),
+            total: precioTotal(),
         };
 
-        crearOrden(buyer).then((newOrder) => {
-            vaciarCarrito();
-            navigate(`/checkout/${newOrder.id}`);
-        }).catch((error) => {
-            console.error("Error al crear la orden:", error);
+        const orderId = await sendOrder(order);
+        alert(`Orden confirmada. ID: ${orderId}`);
+        vaciarCarrito();
+    };
+
+    const handleInputChange = (e) => {
+        setBuyer({
+            ...buyer,
+            [e.target.name]: e.target.value
         });
     };
 
     return (
-        <div className='container-form'>
-            <div className='title-form'>
-                <h2>Completa los siguientes datos para finalizar tu compra.<ion-icon name="checkmark-outline"></ion-icon></h2>
-            </div>
-            <div className='formulario'>
-                <form onSubmit={(e) => {
-                    e.preventDefault();
-                    handleSubmit();
-                }}>
-                    <div className='form-group'>
-                        <label htmlFor='nombre'>Nombre Completo</label>
-                        <input
-                            type='text'
-                            id='nombre'
-                            placeholder='Nombre Completo'
-                            value={nombre}
-                            onChange={handleNombreChange}
-                            required
-                        />
-                    </div>
-                    <div className='form-group'>
-                        <label htmlFor='dni'>DNI</label>
-                        <input
-                            type='text'
-                            id='dni'
-                            placeholder='DNI'
-                            value={dni}
-                            onChange={handleDniChange}
-                            required
-                        />
-                    </div>
-                    <div className='form-group'>
-                        <label htmlFor='email'>Email</label>
-                        <input
-                            type='email'
-                            id='email'
-                            placeholder='Email'
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className='form-group'>
-                        <label htmlFor='direccion'>Dirección</label>
-                        <input
-                            type='text'
-                            id='direccion'
-                            placeholder='Dirección'
-                            value={direccion}
-                            onChange={(e) => setDireccion(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className='form-group'>
-                        <label htmlFor='localidad'>Localidad</label>
-                        <input
-                            type='text'
-                            id='localidad'
-                            placeholder='Localidad'
-                            value={localidad}
-                            onChange={(e) => setLocalidad(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className='form-group'>
-                        <label htmlFor='cp'>Código Postal</label>
-                        <input
-                            type='text'
-                            id='cp'
-                            placeholder='Código Postal'
-                            value={cp}
-                            onChange={(e) => setCP(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className='fin-compra'>
-                        <button type='submit'>Finalizar mi compra</button>
-                    </div>
-                </form>
-                {error && <p style={{ fontSize: '18px', fontWeight: 'bold', color: 'red' }}>{error}</p>}
-            </div>
-        </div>
+        <form onSubmit={handleSubmit}>
+            <input type="text" name="nombre" placeholder="Nombre" onChange={handleInputChange} required />
+            <input type="text" name="apellido" placeholder="Apellido" onChange={handleInputChange} required />
+            <input type="tel" name="telefono" placeholder="Teléfono" onChange={handleInputChange} required />
+            <input type="email" name="email" placeholder="Email" onChange={handleInputChange} required />
+            <input type="email" name="emailConfirm" placeholder="Confirmar Email" onChange={handleInputChange} required />
+            <button type="submit">Confirmar Compra</button>
+        </form>
     );
 };
 
-export default UserInfo;
+export default InfoBuyer;

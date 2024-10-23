@@ -22,7 +22,7 @@ function App() {
               <Route exact path="/" element={<HomeView />} />
               <Route exact path="/infobuyer" element={<InfoView />} />
               <Route path="/category/:id" element={<ItemListContainer />} />
-              <Route path="/id/:id" element={<ItemDetailsContainer />} /> 
+              <Route path="/item/:id" element={<ItemDetailsContainer />} />
               <Route exact path="/cart" element={<Cart />} />
               <Route path="/checkout/:orderId" element={<CheckOut />} />
             </Routes>

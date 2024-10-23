@@ -1,8 +1,7 @@
-import { useContext } from 'react';
-import { CartContext } from '../context/CartContext'; 
 import { initializeApp } from "firebase/app";
-import { getFirestore, addDoc, collection } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, collection, addDoc } from "firebase/firestore"; 
 
+// Configuración de Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyAt8sFyMtHrHSeFHcX58O1JP_a_ArPuraU",
     authDomain: "escaloneta-react.firebaseapp.com",
@@ -12,46 +11,35 @@ const firebaseConfig = {
     appId: "1:913771550029:web:0282ffb02476d8d6ba9304"
 };
 
+// Inicializamos Firebase
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 
+// Función para obtener un producto por ID
+export async function getProductById(id) {
+    try {
+        const docRef = doc(db, "products", id);  // Referencia al documento con el ID
+        const docSnap = await getDoc(docRef);  // Obtenemos el documento
+        if (docSnap.exists()) {
+            return { id: docSnap.id, ...docSnap.data() };  // Devolvemos los datos del producto
+        } else {
+            console.log("Producto no encontrado");
+            return null;  // Producto no existe
+        }
+    } catch (error) {
+        console.error("Error al obtener el producto: ", error);  // Manejo de errores
+        throw error;
+    }
+}
 
-
+// Función para enviar una orden
 export async function sendOrder(order) {
     const ordersCollection = collection(db, 'orders');
-
     try {
         const docRefOrder = await addDoc(ordersCollection, order);
         console.log('Nueva orden generada' + docRefOrder.id);
-        return docRefOrder.id
+        return docRefOrder.id;
     } catch (error) {
-        console.log('Error al agregar el documento' + error)
-    }
-}   
-
-
-
-export const addToCart = (product, quantity) => {
-    const { agregarAlCarrito } = useContext(CartContext);
-    agregarAlCarrito(product, quantity);
-};
-
-export async function getProducts(){
-    try{
-        const querySnapshot = await getDocs(collection(db,"products"))
-        if(querySnapshot.size !==0){
-            const productList = querySnapshot.docs.map((docu)=>{
-                console.log (docu.data(),"soff");
-                return{
-                    id: docu.id,
-                    ...docu.data(),
-                }
-            })
-            return productList;
-        }else{
-            console.log ("coleccion Vacia")
-        }
-    } catch(error){
-        console.error("Error al obtener el doc: ", error);
+        console.log('Error al agregar el documento: ' + error);
     }
 }

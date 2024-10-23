@@ -16,18 +16,20 @@ export default function Navbar() {
         </NavLink>
       <nav>
         <ul>
-          <li>
-            <Link to="/category/camiseta">Camisetas</Link>
-          </li>
-          <li>
-            <Link to="category/pantalon">Pantalones</Link>
-          </li>
-          <li>
-            <Link to="category/campera">Camperas</Link>
-          </li>
+        <li>
+  <Link to="/category/camiseta">Camisetas</Link>
+</li>
+<li>
+  <Link to="/category/pantalon">Pantalones</Link>
+</li>
+<li>
+  <Link to="/category/campera">Camperas</Link>
+</li>
+
         </ul>
       </nav>
       <CartWidget />
     </header>
   );
 }
+

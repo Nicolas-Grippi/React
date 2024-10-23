@@ -1,50 +1,48 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getProducts } from '../../firebase/firebase'; // Asegúrate de importar correctamente tu db
-
-import ItemDetail from './ItemDetails'; // Asegúrate de importar este componente
+import { getProductById } from '../../firebase/firebase'; // Importa correctamente la función desde tu archivo firebase.js
 
 const ItemDetailsContainer = () => {
-    const { id } = useParams(); // Obtiene el ID como string
-    const [producto, setProducto] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
+    const { id } = useParams();  // Usamos useParams para obtener el ID de la URL
+    const [product, setProduct] = useState(null);  // Estado para almacenar el producto
+    const [loading, setLoading] = useState(true);  // Estado de carga
 
+    // useEffect para obtener el producto basado en el ID
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const products = await getProducts(); // Obtiene la lista de productos
-
-                // Filtra el producto por ID
-                const productData = products.find(product => product.id === id); // Asegúrate de que `id` sea comparado correctamente
-
+                const productData = await getProductById(id);  // Llamamos a la función de Firebase
                 if (productData) {
-                    setProducto(productData);
+                    setProduct(productData);  // Guardamos el producto en el estado
                 } else {
-                    setError(true); // Manejo del error si no existe el producto
+                    console.log('Producto no encontrado');  // Producto no existe
                 }
-            } catch (err) {
-                console.error('Error al obtener el producto', err);
-                setError(true);
+            } catch (error) {
+                console.error('Error al obtener el producto:', error);  // Error al obtener producto
             } finally {
-                setLoading(false);
+                setLoading(false);  // Quitamos el estado de carga
             }
         };
 
         fetchProduct();
     }, [id]);
 
+    // Mostramos un mensaje de carga mientras obtenemos el producto
     if (loading) {
-        return <div>Cargando...</div>; // Puedes mejorar esta parte con un loader
+        return <div>Cargando...</div>;
     }
 
-    if (error) {
-        return <div>No hay producto disponible con este ID</div>;
+    // Si no se encuentra el producto, mostramos un mensaje
+    if (!product) {
+        return <div>Producto no encontrado</div>;
     }
 
+    // Renderizamos los detalles del producto si todo salió bien
     return (
         <div>
-            {producto && <ItemDetail product={producto} />}
+            <h2>{product.name}</h2>
+            <p>Precio: ${product.price}</p>
+            {/* Aquí puedes agregar más detalles del producto */}
         </div>
     );
 };

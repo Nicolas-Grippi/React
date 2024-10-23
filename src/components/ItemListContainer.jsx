@@ -39,7 +39,7 @@ function ItemListContainer() {
     if (loading) {
         return (
             <div className='loading-circle'>
-                <svg viewBox="25 25 50 50" className='loader'>
+                <svg viewBox="5 5 10 10" className='loader'>
                     <circle r="20" cy="50" cx="50"></circle>
                 </svg>
             </div>
