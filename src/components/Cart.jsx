@@ -61,8 +61,8 @@ const Cart = () => {
                                         <span className="cantidad-count">{prod.cantidad}</span>
                                         <button className="btn-cantidad" onClick={() => handleSumar(prod)}>+</button>
                                     </td>
-                                    <td>$ {prod.precio}</td>
-                                    <td>$ {(prod.precio * prod.cantidad)}</td>
+                                    <td>{prod.price}</td>
+                                    <td>{(prod.price * prod.cantidad)}</td>
                                     <td>
                                         <ion-icon
                                             name="close-outline"
@@ -74,7 +74,7 @@ const Cart = () => {
                         </tbody>
                     </table>
                     <div className="container-vaciarCart">
-                        <h2>Total a pagar: $ {precioTotal()}</h2>
+                        <h2>Total a pagar: {precioTotal()}</h2>
                         <button className="button-vaciar" onClick={handleVaciar}>Vaciar</button>
                     </div>
                     <div className="center-btn">

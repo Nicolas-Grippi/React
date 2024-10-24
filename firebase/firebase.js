@@ -11,23 +11,23 @@ const firebaseConfig = {
     appId: "1:913771550029:web:0282ffb02476d8d6ba9304"
 };
 
-// Inicializamos Firebase
+
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 
-// Función para obtener un producto por ID
+// 
 export async function getProductById(id) {
     try {
-        const docRef = doc(db, "products", id);  // Referencia al documento con el ID
-        const docSnap = await getDoc(docRef);  // Obtenemos el documento
+        const docRef = doc(db, "products", id);  
+        const docSnap = await getDoc(docRef); 
         if (docSnap.exists()) {
-            return { id: docSnap.id, ...docSnap.data() };  // Devolvemos los datos del producto
+            return { id: docSnap.id, ...docSnap.data() };  
         } else {
             console.log("Producto no encontrado");
-            return null;  // Producto no existe
+            return null;  
         }
     } catch (error) {
-        console.error("Error al obtener el producto: ", error);  // Manejo de errores
+        console.error("Error al obtener el producto: ", error);  
         throw error;
     }
 }

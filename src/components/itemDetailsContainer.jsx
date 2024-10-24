@@ -41,8 +41,11 @@ const ItemDetailsContainer = () => {
     return (
         <div>
             <h2>{product.name}</h2>
+            <img src={product.image} alt={product.name} />
             <p>Precio: ${product.price}</p>
-            {/* Aquí puedes agregar más detalles del producto */}
+            <p>descripción: {product.description} </p>
+            <p></p>
+           
         </div>
     );
 };

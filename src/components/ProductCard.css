@@ -1,51 +1,58 @@
+
+.product-list {
+  display: flex;            
+  flex-wrap: wrap;        
+  justify-content: center; 
+  margin: 20px;           
+}
+
 .product-card {
-    border: 1px solid #D3D3D3;
-    border-radius: 10px;
-    overflow: hidden;
-    background-color: #F5F7F8;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    max-width: 250px; /* Limita el tamaño de la card */
-    margin: 10px;
-  }
-  
-  .product-card:hover {
-    transform: scale(1.05);
-  }
-  
-  .product-card img {
-    width: 100%;
-    height: 150px; /* Tamaño más pequeño para las imágenes */
-    object-fit: cover;
-  }
-  
-  .product-card .card-body {
-    padding: 15px;
-    background-color: #F0F8FF;
-  }
-  
-  .product-card .card-title {
-    color: #002F6C; /* Azul oscuro */
-    font-weight: bold;
-  }
-  
-  .product-card .btn-primary {
-    background-color: #002F6C;
-    border: none;
-  }
-  
-  .product-card .btn-primary:hover {
-    background-color: #FFD700; /* Amarillo */
-    color: white;
-  }
-  
-  .product-card .btn-secondary {
-    background-color: #87CEEB; /* Celeste */
-    border: none;
-  }
-  
-  .product-card .btn-secondary:hover {
-    background-color: #002F6C; /* Azul */
-    color: white;
-  }
-  
+  border: 1px solid #D3D3D3;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #F5F7F8;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  max-width: 300px; 
+  margin: 10px; 
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+.product-card img {
+  width: 100%;
+  height: 280px; 
+  object-fit: cover;
+}
+
+.product-card .card-body {
+  padding: 15px;
+  background-color: #F0F8FF;
+}
+
+.product-card .card-title {
+  color: #002F6C; 
+  font-weight: bold;
+}
+
+.product-card .btn-primary {
+  background-color: #002F6C;
+  border: none;
+}
+
+.product-card .btn-primary:hover {
+  background-color: #FFD700; 
+  color: white;
+}
+
+.product-card .btn-secondary {
+  background-color: #87CEEB; 
+  border: none;
+}
+
+.product-card .btn-secondary:hover {
+  background-color: #002F6C; 
+  color: white;
+}

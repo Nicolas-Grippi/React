@@ -21,9 +21,9 @@ function ItemListContainer() {
         getDocs(q)
             .then((querySnapshot) => {
                 const productosFiltrados = querySnapshot.docs.map(doc => ({
-                    id: doc.id,
+                    ...doc.data(),
                     image: doc.data().image, // Asegúrate de que estás accediendo a 'image'
-                    ...doc.data()
+                    id: doc.id
                 }));
 
                 setProductos(productosFiltrados);

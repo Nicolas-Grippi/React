@@ -1,6 +1,7 @@
 import React from 'react';
 
 const ItemCount = ({ cantidad, handleRestar, handleSumar, handleAgregar, disabled }) => {
+    console.log("Cantidad:", cantidad, "Disabled:", disabled); // Debugging
     return (
         <div className='contenedor-compra'>
             <div className="contador-product">

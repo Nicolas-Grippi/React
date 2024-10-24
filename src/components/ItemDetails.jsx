@@ -5,7 +5,7 @@ import { useState, useContext } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function ItemDetail({ product, initialCount = 1 }) {
+function ItemDetails({ product, initialCount = 1 }) {
     const { agregarAlCarrito, stock, actualizarStock } = useContext(CartContext);
     const [cantidad, setCantidad] = useState(initialCount);
 
@@ -75,4 +75,4 @@ function ItemDetail({ product, initialCount = 1 }) {
     );
 }
 
-export default ItemDetail;
+export default ItemDetails;

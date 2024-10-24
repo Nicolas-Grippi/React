@@ -1,0 +1,14 @@
+.footer{
+background-color: #333,
+    color #fff,
+    textAlign 'center',
+    padding '20px 0',
+    position 'relative',
+    bottom 0,
+    width '100%'
+}
+
+.content{
+    max-width: 1200px,
+    margin 0 auto,
+}
