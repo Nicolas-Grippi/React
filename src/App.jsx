@@ -6,10 +6,11 @@ import InfoView from './views/InfoView/Info';
 import Navbar from './components/NavBar';
 import Footer from './components/Footer';
 import Cart from './components/Cart';
+import ItemDetailsContainer from './components/ItemDetailsContainer.jsx';
 import ItemListContainer from './components/ItemListContainer';
 import CheckOut from './components/Checkout';
 import { CartProvider } from "../context/CartContext";
-import ItemDetailsContainer from './components/ItemDetailsContainer';
+
 
 function App() {
   return (
