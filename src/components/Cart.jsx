@@ -39,7 +39,7 @@ const Cart = () => {
                         <thead>
                             <tr>
                                 <th>IMAGEN</th>
-                                <th>PRODUCTO</th>
+                                <th>PRODUCTOS</th>
                                 <th>CANTIDAD</th>
                                 <th>PRECIO UNITARIO</th>
                                 <th>SUBTOTAL</th>
