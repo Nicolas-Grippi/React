@@ -4,13 +4,10 @@ Tienda de camisetas, pantalones y camperas de la selección argentina. 🇦🇷
 
 ## LINKS:
 
-- **Web**: [🌐 Enlace a tu sitio web](URL_DEL_SITIO)
-- **GitHub**: [🐙 Repositorio en GitHub](URL_DEL_REPOSITORIO)
+- **Web**: 
 
 ## Curso: 
 React JS - CoderHouse - 
-
-- **Alumno**: Nicolás 🎓
 
 ---
 
