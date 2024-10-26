@@ -2,8 +2,7 @@ import { CartContext } from "../../context/CartContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import ImgCarrito from '../../src/assets/carrito.png';
-import '../components/Cart.css'
-
+import '../components/Cart.css';
 
 const Cart = () => {
     const { carrito, precioTotal, vaciarCarrito, removeItem, agregarAlCarrito } = useContext(CartContext);
@@ -50,19 +49,19 @@ const Cart = () => {
                         <tbody>
                             {carrito.map((prod) => (
                                 <tr key={prod.id}>
-                                    <td><img src={prod.img} alt={prod.nombre} /></td>
+                                    <td><img src={prod.image} alt={prod.title} /></td>
                                     <td>
                                         <Link className="link-prod" to={`/producto/${prod.id}`}>
-                                            <h3>{prod.nombre}</h3>
+                                            <h3>{prod.title}</h3>
                                         </Link>
                                     </td>
                                     <td>
-                                        <button className="btn-cantidad" onClick={() => handleRestar(prod)}>-</button>
+                                        <button className="button btn-cantidad" onClick={() => handleRestar(prod)}>-</button>
                                         <span className="cantidad-count">{prod.cantidad}</span>
-                                        <button className="btn-cantidad" onClick={() => handleSumar(prod)}>+</button>
+                                        <button className="button btn-cantidad" onClick={() => handleSumar(prod)}>+</button>
                                     </td>
-                                    <td>{prod.price}</td>
-                                    <td>{(prod.price * prod.cantidad)}</td>
+                                    <td>${prod.price}</td>
+                                    <td>${(prod.price * prod.cantidad * 1000)}</td>
                                     <td>
                                         <ion-icon
                                             name="close-outline"
@@ -75,11 +74,11 @@ const Cart = () => {
                     </table>
                     <div className="container-vaciarCart">
                         <h2>Total a pagar: {precioTotal()}</h2>
-                        <button className="button-vaciar" onClick={handleVaciar}>Vaciar</button>
+                        <button className="button button-vaciar" onClick={handleVaciar}>Vaciar</button>
                     </div>
                     <div className="center-btn">
                         <Link to={'/infobuyer'}>
-                            <button className="terminar-compra-cart">Terminar mi compra</button>
+                            <button className="button terminar-compra-cart">Terminar mi compra</button>
                         </Link>
                     </div>
                 </>

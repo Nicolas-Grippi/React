@@ -1,43 +1,43 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getProductById } from '../../firebase/firebase'; // Importa correctamente la función desde tu archivo firebase.js
+import { getProductById } from '../../firebase/firebase';
 
 const ItemDetailsContainer = () => {
-    const { id } = useParams();  // Usamos useParams para obtener el ID de la URL
-    const [product, setProduct] = useState(null);  // Estado para almacenar el producto
-    const [loading, setLoading] = useState(true);  // Estado de carga
+    const { id } = useParams(); 
+    const [product, setProduct] = useState(null);  
+    const [loading, setLoading] = useState(true);  
 
-    // useEffect para obtener el producto basado en el ID
+  
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const productData = await getProductById(id);  // Llamamos a la función de Firebase
+                const productData = await getProductById(id);  
                 if (productData) {
-                    setProduct(productData);  // Guardamos el producto en el estado
+                    setProduct(productData);  
                 } else {
-                    console.log('Producto no encontrado');  // Producto no existe
+                    console.log('Producto no encontrado');  
                 }
             } catch (error) {
-                console.error('Error al obtener el producto:', error);  // Error al obtener producto
+                console.error('Error al obtener el producto:', error);  
             } finally {
-                setLoading(false);  // Quitamos el estado de carga
+                setLoading(false);  
             }
         };
 
         fetchProduct();
     }, [id]);
 
-    // Mostramos un mensaje de carga mientras obtenemos el producto
+   
     if (loading) {
         return <div>Cargando...</div>;
     }
 
-    // Si no se encuentra el producto, mostramos un mensaje
+
     if (!product) {
         return <div>Producto no encontrado</div>;
     }
 
-    // Renderizamos los detalles del producto si todo salió bien
+    
     return (
         <div>
             <h2>{product.name}</h2>

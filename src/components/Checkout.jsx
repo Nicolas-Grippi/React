@@ -1,15 +1,36 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { CartContext } from '../../context/CartContext';
 import { Link } from 'react-router-dom';
+import { sendOrder } from '../../firebase/firebase';
+import { ThreeDot } from 'react-loading-indicators';
 import '../components/Checkout.css';
-
+import './loader.css'; 
 
 export default function Checkout() {
     const { order } = useContext(CartContext);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    const handleOrder = async () => {
+        setLoading(true); 
+        try {
+            await sendOrder(order);
+         
+        } catch (err) {
+            setError('Error al procesar la orden. Inténtalo de nuevo.');
+        } finally {
+            setLoading(false); 
+        }
+    };
 
     return (
         <>
-            {order ? (
+            {error && <p className="error-message">{error}</p>}
+            {loading ? (
+                <div className="loading-circle">
+                    <ThreeDot variant="bounce" color="#4fc1d8" size="large" text="" textColor="#ff0000" />
+                </div>
+            ) : order ? (
                 <div className="container-compra">
                     {order.buyer ? (
                         <h2 className="thank-you-title">¡GRACIAS POR TU COMPRA, {order.buyer.nombre}!</h2>
@@ -38,13 +59,13 @@ export default function Checkout() {
                             <p className='buyer-info'><span>Código Postal: </span>{order.buyer.cp}</p>
                         </div>
                     </div>
-                    <Link to={'/'}><button className='home-link'>Volver al Inicio</button></Link>
+                    <Link to={'/'}>
+                        <button className='home-link'>Volver al Inicio</button>
+                    </Link>
                 </div>
             ) : (
                 <div className='loading-circle'>
-                    <svg viewBox="25 25 50 50" className='loader'>
-                        <circle r="20" cy="50" cx="50"></circle>
-                    </svg>
+                    <ThreeDot variant="bounce" color="#4fc1d8" size="large" text="" textColor="#ff0000" />
                 </div>
             )}
         </>

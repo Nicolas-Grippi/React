@@ -11,11 +11,10 @@ const firebaseConfig = {
     appId: "1:913771550029:web:0282ffb02476d8d6ba9304"
 };
 
-
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 
-// 
+// Obtener producto por ID
 export async function getProductById(id) {
     try {
         const docRef = doc(db, "products", id);  
@@ -37,9 +36,10 @@ export async function sendOrder(order) {
     const ordersCollection = collection(db, 'orders');
     try {
         const docRefOrder = await addDoc(ordersCollection, order);
-        console.log('Nueva orden generada' + docRefOrder.id);
+        console.log('Nueva orden generada: ' + docRefOrder.id);
         return docRefOrder.id;
     } catch (error) {
         console.log('Error al agregar el documento: ' + error);
+        throw error;  // Lanzar error para manejo en el componente
     }
 }

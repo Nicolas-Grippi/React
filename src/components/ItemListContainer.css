@@ -1,0 +1,12 @@
+.contenedor-cards {
+    display: flex;            
+    flex-wrap: wrap;        
+    justify-content: center; 
+    margin: 20px;  
+}
+
+.title-categoria {
+    text-align: center;
+    margin: 20px 0;
+}
+

@@ -1,7 +1,7 @@
 html, body {
   height: 100%;
   font-family: 'Arial', sans-serif;
-  background-color: #F0F8FF; /* Fondo celeste claro */
+  background-color: #F0F8FF; 
   color: #333;
 }
 
@@ -18,12 +18,77 @@ button {
 .contenedor-principal {
   min-height: 100vh;
   padding: 20px;
-  background-color: #F0F8FF; /* Fondo celeste */
+  background-color: #F0F8FF; 
 }
 
 footer {
-  background-color: #002F6C; /* Fondo azul */
+  background-color: #002F6C; 
   color: white;
   padding: 20px;
   text-align: center;
+}
+
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  color: #fff; 
+  background-color: #00A3E0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.button:hover {
+  background-color: #0083B0; 
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+
+.button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+.agregar-al-carrito {
+  background-color: #007BFF; 
+}
+
+.agregar-al-carrito:hover {
+  background-color: #0056b3; 
+}
+
+
+.detalles {
+  background-color: #00A3E0; 
+}
+
+.detalles:hover {
+  background-color: #0083B0; 
+}
+
+
+.btn-cantidad {
+  background-color: #FDD835; 
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease;
+}
+
+
+.btn-cantidad:hover {
+  background-color: #FBC02D; 
 }

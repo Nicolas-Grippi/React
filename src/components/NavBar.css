@@ -3,12 +3,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #002F6C; /* Azul oscuro */
+  background-color: #002F6C; 
   color: white;
 }
 
 .header-container img {
-  width: 100px; /* Tamaño del logo */
+  width: 100px; 
 }
 
 .header-container ul {
@@ -18,7 +18,7 @@
 }
 
 .header-container ul li a {
-  color: #FFD700; /* Amarillo */
+  color: #FFD700; 
   font-weight: bold;
   text-transform: uppercase;
   padding: 10px;
@@ -26,10 +26,10 @@
 }
 
 .header-container ul li a:hover {
-  background-color: #87CEEB; /* Azul celeste */
+  background-color: #87CEEB; 
   color: white;
 }
 
 .cart-widget {
-  color: #FFD700; /* Amarillo */
+  color: #FFD700; 
 }

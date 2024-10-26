@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { sendOrder } from '../firebase/firebase'; 
+
 
 export const CartContext = createContext();
 
@@ -8,10 +9,7 @@ export const CartProvider = ({ children }) => {
     const [stock, setStock] = useState({});
     const [order, setOrder] = useState(null);
 
-    const crearOrden = (buyer) => {
-        const db = getFirestore();
-        const ordersCollection = collection(db, 'orders');
-
+    const crearOrden = async (buyer) => {
         const items = carrito.map(item => ({
             id: item.id,
             nombre: item.nombre,
@@ -19,18 +17,20 @@ export const CartProvider = ({ children }) => {
             precio: item.precio,
         }));
 
-        const order = {
+        const orderData = {
             buyer,
             items,
             total: precioTotal(),
         };
 
-        return addDoc(ordersCollection, order).then((snapshot) => {
-            const newOrder = { id: snapshot.id, ...order };
-            setOrder(newOrder);
+        try {
+            const orderId = await sendOrder(orderData); 
+            setOrder({ id: orderId, ...orderData });
             vaciarCarrito();
-            return newOrder;
-        });
+            return orderId;
+        } catch (error) {
+            console.error("Error al crear la orden:", error);
+        }
     };
 
     const actualizarStock = (productId, nuevoStock) => {
@@ -72,7 +72,7 @@ export const CartProvider = ({ children }) => {
     };
 
     const precioTotal = () => {
-        return carrito.reduce((acc, prod) => acc + prod.precio * prod.cantidad, 0);
+        return carrito.reduce((acc, prod) => acc + prod.price * prod.cantidad *1000, 0);
     };
 
     const vaciarCarrito = () => {
@@ -90,7 +90,7 @@ export const CartProvider = ({ children }) => {
             removeItem,
             stock,
             actualizarStock,
-            crearOrden,
+            crearOrden,  
             order
         }}>
             {children}

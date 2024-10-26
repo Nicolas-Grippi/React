@@ -1,7 +1,9 @@
 import { useContext, useState } from 'react';
 import { CartContext } from '../../context/CartContext';
 import { Link } from 'react-router-dom';
-import './ProductCard.css'; // Importamos el archivo CSS
+import './ProductCard.css'; 
+import './loader.css'; 
+import Swal from 'sweetalert2';
 
 export default function ProductCard({ producto }) {
     const { agregarAlCarrito } = useContext(CartContext);
@@ -9,6 +11,14 @@ export default function ProductCard({ producto }) {
 
     const handleAddToCart = () => {
         agregarAlCarrito(producto, cantidad);
+        
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Producto agregado al carrito",
+            showConfirmButton: false,
+            timer: 1500,
+        });
     };
 
     const handleIncrement = () => {
@@ -17,6 +27,17 @@ export default function ProductCard({ producto }) {
 
     const handleDecrement = () => {
         if (cantidad > 1) setCantidad(cantidad - 1);
+    };
+
+    const handleDetailsClick = () => {
+        // Mostrar la alerta de detalles
+        Swal.fire({
+            position: "top-end",
+            icon: "info",
+            title: "Vas a ver los detalles del producto",
+            showConfirmButton: false,
+            timer: 1500,
+        });
     };
 
     return (
@@ -29,15 +50,14 @@ export default function ProductCard({ producto }) {
             <div className="card-body text-center">
                 <h5 className="card-title">{producto.title}</h5>
                 <p>Precio: ${producto.price}</p>
-                <div className="quantity-control">
-                    <button onClick={handleDecrement} className="btn btn-outline-primary">-</button>
+                <div className="quantity-control" style={{ display: 'none' }}>
                     <span className="mx-2">{cantidad}</span>
-                    <button onClick={handleIncrement} className="btn btn-outline-primary">+</button>
                 </div>
-                <button className="btn btn-primary mx-2" onClick={handleAddToCart}>
+
+                <button className="button agregar-al-carrito mx-2" onClick={handleAddToCart}>
                     Agregar al carrito
                 </button>
-                <Link to={`/item/${producto.id}`} className="btn btn-secondary mx-2">
+                <Link to={`/item/${producto.id}`} className="button detalles mx-2" onClick={handleDetailsClick}>
                     Detalles
                 </Link> 
             </div>

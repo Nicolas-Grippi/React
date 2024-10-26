@@ -2,7 +2,7 @@ import '../components/CartWidget.css';
 import { NavLink } from "react-router-dom";
 import { CartContext } from '../../context/CartContext';
 import { useContext } from 'react';
-
+import "./CartWidget.css"
 export default function CartWidget() {
 
   const { cantidadEnCarrito } = useContext(CartContext);
