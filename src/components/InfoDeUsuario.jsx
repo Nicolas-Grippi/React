@@ -30,9 +30,9 @@ const InfoBuyer = () => {
             buyer,
             items: carrito.map(item => ({
                 id: item.id,
-                nombre: item.nombre,
+                title: item.title,
                 cantidad: item.cantidad,
-                precio: item.precio,
+                price: item.price,
             })),
             total: precioTotal() || 0, 
         };
